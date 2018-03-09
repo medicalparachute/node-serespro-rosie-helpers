@@ -1,6 +1,6 @@
 {
   "name": "serespro-rosie-helpers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Example git project that is used for typescript libraries as a starter pack",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",

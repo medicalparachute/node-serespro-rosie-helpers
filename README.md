@@ -6,6 +6,8 @@
 
 Example git project that is used for typescript libraries as a starter pack
 
+https://github.com/DxCx/ts-library-starter
+
 What does it include:
 ----
     1. exported class as example for an npm moudle
