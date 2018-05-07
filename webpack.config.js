@@ -89,8 +89,8 @@ var webpack_opts = {
     new webpack.LoaderOptionsPlugin({
       options: {
         tslint: {
-          emitErrors: true,
-          failOnHint: true
+          emitErrors: false,
+          failOnHint: false
         }
       }
     }),

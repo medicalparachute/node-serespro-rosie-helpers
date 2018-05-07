@@ -1,6 +1,6 @@
 {
   "name": "serespro-rosie-helpers",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Example git project that is used for typescript libraries as a starter pack",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -56,7 +56,9 @@
     "webpack": "3.5.5",
     "webpack-node-externals": "^1.6.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.21.0"
+  },
   "jest": {
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
