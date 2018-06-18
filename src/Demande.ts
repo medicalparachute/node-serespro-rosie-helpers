@@ -102,9 +102,9 @@ export class Demande {
    {
      if(type === 'Enfant'|| type==='Adulte')
      {
-       return this.displayPersonneEmail(demande.client, 0);
+       return this.displayPersonneEmail(demande.client, 0);  // MB XX change from client to interlocuteur
      }else{
-       return this.displayMCResponsableContratEmail(demande);
+       return this.displayMCResponsableContratEmail(demande);  //MB XX verify this is RESPONSABLE_CONTRAT
      }
    }
  }
@@ -116,9 +116,9 @@ export class Demande {
    {
      if(type === 'Enfant'|| type==='Adulte')
      {
-       return this.displayPersonneEmail(demande.client, 0);
+       return this.displayPersonneEmail(demande.client, 0);  // MB XX change client to interlocuteur
      }else{
-       return this.displayInterlocuteurEmail(demande);
+       return this.displayInterlocuteurEmail(demande);        //  MB XX change client to PAYABLE
      }
    }
  }
@@ -205,13 +205,23 @@ export class Demande {
 
  displayClientIdOgustClient(demande)
  {
+    // if(demande != null
+    //     && typeof demande.client != 'undefined'
+    //     && demande.client != null
+    //
+    //
+    // ){
+    //   return this.displayPersonnePhone(demande.client,0)+ this.displayPersonnePhone(demande.client,1) +  this.displayPersonnePhone(demande.client,2);
+    // }
+
     if(demande != null
         && typeof demande.client != 'undefined'
         && demande.client != null
-
+        && typeof demande.client.ogustId != 'undefined'
+        && demande.client.ogustId != null
 
     ){
-      return this.displayPersonnePhone(demande.client,0)+ this.displayPersonnePhone(demande.client,1) +  this.displayPersonnePhone(demande.client,2);
+      return demande.client.ogustId;
     }
 
 
@@ -276,8 +286,33 @@ export class Demande {
    return this.emptyParameter;
  }
 
+ displayClientOrigine(demande)
+ {
+
+    if(demande != null
+         && typeof demande.client != 'undefined'
+         && demande.client != null
+         && typeof demande.client.origine != 'undefined'
+         && demande.client.origine != null
+         && demande.client.origine != ''
+
+    ){
+      return demande.client.origine;
+    }
+
+
+   return this.emptyParameter;
+ }
+
  displayClientPrenom(demande)
  {
+
+   let demande_type = this.displayDemandeType(demande);
+
+   if(demande_type === 'Clinique Privée' || demande_type === 'CPE')
+   {
+     return this.displayClientPrenomAS(demande);
+   }
 
     if(demande != null
          && typeof demande.client != 'undefined'
@@ -291,6 +326,13 @@ export class Demande {
 
 
    return this.emptyParameter;
+ }
+
+ displayClientPrenomAS(demande)
+ {
+
+   let str ='A/S ' +  this.displayInterlocuteurGender(demande) + ' ' + this.displayInterlocuteurPrenom(demande) + ' ' + this.displayInterlocuteurNom(demande);
+   return str;
  }
 
  displayClientNom(demande)
@@ -414,30 +456,46 @@ export class Demande {
  }
 
 
+
+ displayAddressFromPos(person, posIndex)
+ {
+
+ }
+
+
+ displayBillingAddressExport(demande)
+ {
+   let personne = this.getBillingPerson(demande);
+   if(personne!==null)
+   {
+     let address = this.getPOSAddress(personne, 0);
+     if(address!== null )
+     {
+        return this.displayAddressExport(address);
+     }
+   }
+     return this.emptyParameter;
+ }
+ displayBillingPostal(demande)
+ {
+   let personne = this.getBillingPerson(demande);
+   if(personne!==null)
+   {
+     let address = this.getPOSAddress(personne, 0);
+     if(address!== null )
+     {
+        return this.displayAddressCodePostal(address);
+     }
+   }
+     return this.emptyParameter;
+ }
+
   displayDomicileAddressExport(demande)
  {
-   return this.displayClientAddressExport(demande);
- //  if(demande != null
- //         && typeof demande.domicile != 'undefined'
- //         && demande.domicile != null
- //         && typeof demande.domicile.address != 'undefined'
- //         && demande.domicile.address != null
- //         && typeof demande.domicile.address.number != 'undefined'
- //         && demande.domicile.address.number != null
- //         && typeof demande.domicile.address.street != 'undefined'
- //         && demande.domicile.address.street != null
- //    ){
- //
- //    var addr = demande.domicile.address.number+", "+demande.domicile.address.street;
- //    var apt =this.displayDomicileAddressApt(demande);
- //    if(apt!=this.emptyParameter)
- //    {
- //      addr+= ' apt '+apt;
- //    }
- //    // var apt = this.
- //     return addr;
- //   }
- // return this.emptyParameter;
+   return this.displayAddressCodePostal(demande);
+   //return this.displayClientAddressExport(demande);
+
+
  }
  displayDomicileCodePostal(demande)
  {
@@ -453,14 +511,15 @@ export class Demande {
  //   }
  // return this.emptyParameter;
 
-      if(demande != null
-        && typeof demande.client != 'undefined'
-        && demande.client != null
-      ){
-           return this.displayAddressCodePostal(demande.client);
-         }
-         return this.emptyParameter;
+      // if(demande != null
+      //   && typeof demande.client != 'undefined'
+      //   && demande.client != null
+      // ){
+      //      return this.displayAddressCodePostal(demande.client);
+      //    }
+      //    return this.emptyParameter;
 
+      return this.displayBillingPostal(demande);
 
  }
 
@@ -546,6 +605,85 @@ export class Demande {
  }
 
 
+ getPersonnePhones(personne)
+ {
+   if(personne != null
+         && typeof personne.phones != 'undefined'
+         && personne.phones != null
+         && personne.phones.length>0
+
+
+    ){
+      return personne.phones;
+    }
+    return [];
+ }
+
+ displayPersonnePhoneByType(personne, type)
+ {
+   let phone = this.getPersonnePhoneByType(personne, type);
+  return this.displayPhone(phone);
+ }
+
+ getPersonnePhoneByType(personne, type)
+ {
+   let phones = this.getPersonnePhones(personne);
+   for(let phone of phones)
+   {
+     if(phone._type === type)
+     {
+      return phone
+     }
+   }
+
+   return null;
+ }
+
+
+ displayPersonnePhoneWork(personne)
+ {
+   return this.displayPersonnePhoneByType(personne, 'WORK');
+ }
+ displayPersonnePhoneCell(personne)
+ {
+   return this.displayPersonnePhoneByType(personne, 'CELL');
+ }
+ displayPersonnePhoneHome(personne)
+ {
+   return this.displayPersonnePhoneByType(personne, 'HOME');
+ }
+displayPhone(phone)
+{
+  let str = '';
+  if(phone!==null && typeof phone.number!=='undefined' && phone.number!==null)
+  {
+    str+=phone.number;
+  }
+  if(phone!==null && typeof phone.ext!=='undefined' && phone.ext!==null && phone.ext!=='')
+  {
+    str+='('+phone.ext+')';
+  }
+
+  return str;
+}
+
+displayBillingPhoneHome(demande)
+{
+  let personne = this.getInterlocuteurOrPayerPerson(demande);
+  console.log('ldckmal personne: ',personne);
+  return this.displayPersonnePhoneHome(personne);
+}
+displayBillingPhoneWork(demande)
+{
+  let personne = this.getInterlocuteurOrPayerPerson(demande);
+  return this.displayPersonnePhoneWork(personne);
+}
+displayBillingPhoneCell(demande)
+{
+  let personne = this.getInterlocuteurOrPayerPerson(demande);
+  return this.displayPersonnePhoneCell(personne);
+}
+
  displayCellPhone(demande)
  {
    if(demande != null
@@ -615,23 +753,58 @@ export class Demande {
  }
 
 
+ displayEmailForPersonne(personne, index)
+ {
+   if(personne!==null
+      && typeof personne.emails!=='undefined'
+      && personne.emails!==null  && personne.emails.length>index && index>=0
+      && typeof personne.emails[index].address !=='undefined'
+      && personne.emails[index].address !==null
+    )
+    {
+      return personne.emails[index].address;
+    }
+    return this.emptyParameter;
+ }
+ displayBillingEmail(demande, index)
+ {
+   let personne = this.getInterlocuteurOrPayerPerson(demande);
+   return this.displayEmailForPersonne(personne, index);
+ }
 
+
+displayPersonneGender(personne)
+{
+  if(personne != null
+       && typeof personne.gender != 'undefined'
+       && personne.gender != null
+       && typeof this._Constants.default.sexe[personne.gender] != 'undefined'
+  ){
+    return this._Constants.default.sexe[personne.gender].civilite;
+  }
+
+
+ return this.emptyParameter;
+}
 
  displayInterlocuteurGender(demande)
  {
 
-    if(demande != null
-         && typeof demande.interlocuteur != 'undefined'
-         && demande.interlocuteur != null
-         && typeof demande.interlocuteur.gender != 'undefined'
-         && demande.interlocuteur.gender != null
-         && typeof this._Constants.default.sexe[demande.interlocuteur.gender] != 'undefined'
-    ){
-      return this._Constants.default.sexe[demande.interlocuteur.gender].civilite;
-    }
+   let personne = this.getInterlocuteurOrPayerPerson(demande);
+   return this.displayPersonneGender(personne);
 
-
-   return this.emptyParameter;
+   //  if(demande != null
+   //       && typeof demande.interlocuteur != 'undefined'
+   //       && demande.interlocuteur != null
+   //       && typeof demande.interlocuteur.gender != 'undefined'
+   //       && demande.interlocuteur.gender != null
+   //       && typeof this._Constants.default.sexe[demande.interlocuteur.gender] != 'undefined'
+   //  ){
+   //    return this._Constants.default.sexe[demande.interlocuteur.gender].civilite;
+   //  }
+   //
+   //
+   // return this.emptyParameter;
  }
 
  displayInterlocuteurPrenom(demande)
@@ -754,19 +927,28 @@ export class Demande {
 
  displayEtablissement(demande)
  {
+   let client = this.getClient(demande);
+   if(client!==null)
+   {
+     let pos = this.getPOS(client, 0);
+     if(pos!==null && pos.etablissement!=='undefined' && pos.etablissement!==null)
+     {
+       return pos.etablissement;
+     }
+   }//client notnull
 
 
-    if(demande != null
-         && typeof demande.etablissement != 'undefined'
-         && demande.etablissement != null
-         && typeof demande.etablissement.name != 'undefined'
-         && demande.etablissement.name != null
-         && demande.etablissement.name != ''
-
-    ){
-      return demande.etablissement.name;
-    }
-
+    // if(demande != null
+    //      && typeof demande.etablissement != 'undefined'
+    //      && demande.etablissement != null
+    //      && typeof demande.etablissement.name != 'undefined'
+    //      && demande.etablissement.name != null
+    //      && demande.etablissement.name != ''
+    //
+    // ){
+    //   return demande.etablissement.name;
+    // }
+    //
 
    return this.emptyParameter;
  }
@@ -775,7 +957,7 @@ export class Demande {
 
  displayAnneeScolaire(demande)
  {
-   // return JSON.stringify(demande);
+
 
     if(demande != null
          && typeof demande.anneeScolaire != 'undefined'
@@ -1298,6 +1480,11 @@ displayServiceJSON(demande)
 
  displayServiceCodeDeContratClient(demande)
  {
+   // MB XX si form MC_READ ->
+   //                 si date_fin_indeterminee ->
+   //                           demande.service.contratClient.code + ' ' + - +' ' + CDI
+   //                 si date_fin_indeterminee===false ->
+   //                           demande.service.contratClient.code + ' ' + - +' ' + CDD
    if(demande != null
          && typeof demande.service != 'undefined'
          && demande.service != null
@@ -1330,15 +1517,23 @@ displayServiceJSON(demande)
 
  displayServiceModeleDeSuiviEmailWithAssignation(demande)
  {
-   var code = this.displayServiceModeleDeSuiviEmail(demande);
-
-   if(code === this.emptyParameter)
+   // MB xx -> only enfant / adulte. if not -> return this.emptyParameter;
+   let demande_type = this.displayDemandeType(demande);
+   if(demande_type==='Enfant' || demande_type==='Adulte')
    {
+     var code = this.displayServiceModeleDeSuiviEmail(demande);
+
+     if(code === this.emptyParameter)
+     {
+       return this.emptyParameter;
+     }
+
+     code = 'Suivi rencontre 1 - ' + code + ' - ' + this.displayAssignation(demande);
+     return code;
+   }else{
      return this.emptyParameter;
    }
 
-   code = code + ' - ' + this.displayAssignation(demande);
-   return code;
  }
 
  displayServiceCodeDeContratClientEmail(demande)
@@ -1469,23 +1664,78 @@ displayServicePrepaymentFormatEdition(demande)
   }
 }
 
+getServiceContratTravail(demande)
+{
+  if(demande != null
+        && typeof demande.service != 'undefined'
+        && demande.service != null
+        && typeof demande.service.contratTravail != 'undefined'
+        && demande.service.contratTravail != null
+        && typeof demande.service.contratTravail.code != 'undefined'
+        && demande.service.contratTravail.code != null
+        && demande.service.contratTravail.code != ''
+   ){
+    return demande.service.contratTravail.code;
+  }
+return this.emptyParameter;
+}
+
+
  displayServiceContratTravail(demande)
  {
-   if(demande != null
-         && typeof demande.service != 'undefined'
-         && demande.service != null
-         && typeof demande.service.contratTravail != 'undefined'
-         && demande.service.contratTravail != null
-         && typeof demande.service.contratTravail.code != 'undefined'
-         && demande.service.contratTravail.code != null
-         && demande.service.contratTravail.code != ''
-    ){
-     return demande.service.contratTravail.code;
+
+   let mcType = this.displayMCType(demande);
+   let SCT = this.getServiceContratTravail(demande);
+   if(SCT===this.emptyParameter)
+   {
+     return this.emptyParameter;
    }
- return this.emptyParameter;
+
+   if(mcType==='READ')
+   {
+     let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
+     let str = SCT + ' ';
+     if(dateFinIndet===true)
+     {
+       str+='CDI '
+     }else{
+       str+='CDD '
+     }
+     str += this.displayMCProfessionalStatutEmployment(demande);
+     return str;
+     //service.contratTravail + ' ' + [if(tarifs.date_fin_indeterminee === true) -> 'CDI' else -> 'CDD' ]+ ' ' + prof.statut
+   }// end READ
+
+
+   return this.getServiceContratTravail(demande);
+
+
+   //return this.emptyParameter;
  }
 
- displayServiceContratTravailEmail(demande)
+ displayServiceContratTravailPremierContrat(demande)
+ {
+
+   let mcType = this.displayMCType(demande);
+   let SCT = this.getServiceContratTravail(demande);
+   if(SCT===this.emptyParameter)
+   {
+     return this.emptyParameter;
+   }
+   if(mcType!=='READ')
+   {
+
+     let sectuer = this.displayServiceSecteur(demande);
+     let str = sectuer;
+     str += ' Contrat initial - ';
+     str += this.displayMCProfessionalStatutEmployment(demande);
+     return str;
+  }// not READ
+
+  return this.emptyParameter;
+ }
+
+ getServiceContratTravailEmail(demande)
  {
    if(demande != null
          && typeof demande.service != 'undefined'
@@ -1501,6 +1751,58 @@ displayServicePrepaymentFormatEdition(demande)
  return this.emptyParameter;
  }
 
+ getFraisDeplacementPayeEtablissement(demande)
+ {
+   if(demande != null
+       && typeof demande.frais_deplacement_paye_etablissement != 'undefined'
+       && demande.frais_deplacement_paye_etablissement != null
+    ){
+     return demande.frais_deplacement_paye_etablissement;
+   }
+   return this.emptyParameter;
+ }
+ displayServiceContratTravailEmail(demande)
+ {
+   let mcType = this.displayMCType(demande);
+   let CTE = this.getServiceContratTravailEmail(demande);
+   if(CTE===this.emptyParameter)
+   {
+     return this.emptyParameter;
+   }
+
+   if(mcType==='READ')
+   {
+     let str = CTE+' - ';
+     let profStatut = this.displayMCProfessionalStatutEmployment(demande);
+     let deplacement = this.getFraisDeplacementPayeEtablissement(demande);
+
+     str += profStatut;
+
+     if(deplacement===true)
+     {
+       str += ' Feuille deplacement';
+     }
+
+     return str;
+   }
+  // demande.service.contratTravailEmail.code + ' - ' prof.statut  + [if frais_deplacement_paye_etablissement===true -> + ' + Feuille deplacement']
+
+
+  return CTE;
+ }
+ displayServiceContratTravailEmailPremierContrat(demande)
+ {
+   let mcType = this.displayMCType(demande);
+   if(mcType!=='READ')
+   {
+     let str = 'Contrat initial - ';
+     let profStatut = this.displayMCProfessionalStatutEmployment(demande);
+     str += profStatut;
+     return str;
+   }
+
+  return this.emptyParameter;
+ }
 
  displayServicePPClient(demande)
  {
@@ -1670,6 +1972,22 @@ displayServicePrepaymentFormatEdition(demande)
  return this.emptyParameter;
  }
 
+displayMCProfessionalMetier(demande)
+{
+ if(demande != null
+       && typeof demande.mandatComble != 'undefined'
+       && demande.mandatComble != null
+       && typeof demande.mandatComble.professionnel != 'undefined'
+       && demande.mandatComble.professionnel != null
+       && typeof demande.mandatComble.professionnel.competences != 'undefined'
+       && demande.mandatComble.professionnel.competences != null
+
+  ){
+   return demande.mandatComble.professionnel.competences;
+ }
+return this.emptyParameter;
+}
+
  displayMCProfessionalFullName(demande)
 {
   return (this.displayMCProfessionalNom(demande)+', '+this.displayMCProfessionalPrenom(demande));
@@ -1767,24 +2085,50 @@ return this.emptyParameter;
  displayMCDateFin(demande)
  {
 
-    if(demande != null
-          && typeof demande.mandatComble != 'undefined'
-         && demande.mandatComble != null
-         && typeof demande.mandatComble.date_fin_date != 'undefined'
-         && demande.mandatComble.date_fin_date != null
+   // MB XX -> take this from tarifs.
+   // if date_fin_indeterminee === true -> return '';
+   let finIndetermine = this.getRencontreDateFinIndeterminee(demande, 0,0);
+   let dateFin = this.getRencontreDateFinIndeterminee(demande, 0,0);
 
-
-
-    ){
-      return this.formatMyDate(demande.mandatComble.date_fin_date, this._Constants.default.dateFormats.exports);//demande.date_fin.date;
-    }
-
-
+   if(finIndetermine===false)
+   {
+     return this.formatMyDate(dateFin, this._Constants.default.dateFormats.exports);
+   }
    return this.emptyParameter;
+    //
+    // if(demande != null
+    //       && typeof demande.mandatComble != 'undefined'
+    //      && demande.mandatComble != null
+    //      && typeof demande.mandatComble.date_fin_date != 'undefined'
+    //      && demande.mandatComble.date_fin_date != null
+    //
+    //
+    //
+    // ){
+    //   return this.formatMyDate(demande.mandatComble.date_fin_date, this._Constants.default.dateFormats.exports);//demande.date_fin.date;
+    // }
+
+
+  // return this.emptyParameter;
  }
 
 
- displayMCParticulariteContratClient(demande)
+ // displayMCParticulariteContratClient(demande)
+ // {
+ //   if(demande != null
+ //         && typeof demande.mandatComble != 'undefined'
+ //         && demande.mandatComble != null
+ //         && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
+ //         && demande.mandatComble.particularites_contrat_client != null
+ //         && demande.mandatComble.particularites_contrat_client != ''
+ //
+ //    ){
+ //     return demande.mandatComble.particularites_contrat_client;
+ //   }
+ // return this.emptyParameter;
+ // }
+
+ displayMCParticulariteContratClient(demande, index)
  {
    if(demande != null
          && typeof demande.mandatComble != 'undefined'
@@ -1792,9 +2136,11 @@ return this.emptyParameter;
          && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
          && demande.mandatComble.particularites_contrat_client != null
          && demande.mandatComble.particularites_contrat_client != ''
+         && demande.mandatComble.particularites_contrat_client.length > 0
+         && demande.mandatComble.particularites_contrat_client.length > index
 
     ){
-     return demande.mandatComble.particularites_contrat_client;
+     return demande.mandatComble.particularites_contrat_client[index];
    }
  return this.emptyParameter;
  }
@@ -1892,6 +2238,23 @@ return this.emptyParameter;
 
     ){
      return demande.mandatComble.particularites_autres[index];
+   }
+ return this.emptyParameter;
+ }
+
+ displayMCParticulariteContratTravail(demande, index)
+ {
+   if(demande != null
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.particularites_contrat_travail != 'undefined'
+         && demande.mandatComble.particularites_contrat_travail != null
+         && demande.mandatComble.particularites_contrat_travail != ''
+         && demande.mandatComble.particularites_contrat_travail.length > 0
+         && demande.mandatComble.particularites_contrat_travail.length > index
+
+    ){
+     return demande.mandatComble.particularites_contrat_travail[index];
    }
  return this.emptyParameter;
  }
@@ -2557,6 +2920,53 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
       return demande.mandatComble.tarifs;
 
+   }
+   return null;
+ }
+
+ getRawMCTarifIndex(demande, index)
+ {
+    let tarifs = this.getRawMCTarif(demande);
+    if(tarifs!==null && index>0 && index<tarifs.length)
+    {
+      return tarifs[index];
+    }
+   return null;
+ }
+ getRawMCTarifRencontre(demande, iTarif)
+ {
+   let tarif = this.getRawMCTarifIndex(demande, iTarif);
+   if(tarif!==null && typeof tarif.rencontres!=='undefined')
+   {
+     return tarif.rencontres;
+   }
+   return null;
+ }
+ getRawMCTarifRencontreIndex(demande, iTarif, iRencontre)
+ {
+   let rencontres = this.getRawMCTarifRencontre(demande, iTarif);
+   if(rencontres!==null && iRencontre>0 && iRencontre<rencontres.length)
+   {
+     return rencontres[iRencontre];
+   }
+   return null;
+ }
+
+ getRencontreDateFinIndeterminee(demande, iTarif, iRencontre)
+ {
+   let rencontre = this.getRawMCTarifRencontreIndex(demande, iTarif,iRencontre);
+   if(rencontre!==null && typeof rencontre.date_fin_indeterminee!=='undefined' && rencontre.date_fin_indeterminee!==null)
+   {
+     return rencontre.date_fin_indeterminee;
+   }
+   return null;
+ }
+ getRencontreDateFin(demande, iTarif, iRencontre)
+ {
+   let rencontre = this.getRawMCTarifRencontreIndex(demande, iTarif,iRencontre);
+   if(rencontre!==null && typeof rencontre.date_fin_date!=='undefined' && rencontre.date_fin_date!==null)
+   {
+     return rencontre.date_fin_date;
    }
    return null;
  }
@@ -3368,7 +3778,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
                && demande.mandatComble.responsableContrat != null
 
           ){
-           return this.displayPersonneEmail(demande.mandatComble.responsableContrat, 0);
+           return this.displayPersonneEmail(demande.mandatComble.responsableContrat, 0);   // MB XX make sure its RESPONSABLE SIGNATURE DU CONTRAT
          }
          return this.emptyParameter;
 
@@ -3479,6 +3889,98 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
    return this.emptyParameter;
    }
 
+
+
+
+    getPOS(personne, index)
+    {
+      if(personne != null
+             && typeof personne.pointDeServices != 'undefined'
+             && personne.pointDeServices != null
+             && personne.pointDeServices.length >0
+             && personne.pointDeServices.length >index
+        ){
+          return personne.pointDeServices[index];
+        }
+
+        return null;
+    }
+
+    getPOSAddress(personne, index)
+    {
+      let pos = this.getPOS(personne, index);
+      if(pos!==null && typeof pos.address!=='undefined' && pos.address!==null)
+      {
+        return pos.address;
+      }
+      return null;
+    }
+
+
+     getClient(demande)
+     {
+       if(demande != null
+              && typeof demande.client != 'undefined'
+              && demande.client != null
+         ){
+           return demande.client;
+         }
+         return null;
+     }
+
+     getInterlocuteur(demande)
+     {
+       console.log('getInterlocuteur')
+       if(demande != null
+              && typeof demande.interlocuteur != 'undefined'
+              && demande.interlocuteur != null
+         ){
+           console.log('demande.interlocuteur: ',demande.interlocuteur)
+           return demande.interlocuteur;
+         }
+         return null;
+     }
+     getPayer(demande)
+     {
+       // if(demande != null
+       //        && typeof demande.interlocuteur != 'undefined'
+       //        && demande.interlocuteur != null
+       //   ){
+       //     return demande.interlocuteur;
+       //   }
+         return null;
+     }
+
+     getBillingPerson(demande)
+     {
+       // let personne = null;
+       let demande_type = this.displayDemandeType(demande);
+       if(demande_type === 'Enfant' || demande_type === 'Adulte')
+       {
+         return this.getClient(demande);
+        // return this.displayClientPrenomAS(demande);
+        }else{
+          return this.getPayer(demande);
+        }
+
+      //  return null;
+
+
+     }
+
+     getInterlocuteurOrPayerPerson(demande)
+     {
+       let demande_type = this.displayDemandeType(demande);
+       if(demande_type === 'Enfant' || demande_type === 'Adulte')
+       {
+
+         console.log('this.getInterlocuteur(demande): ',this.getInterlocuteur(demande));
+         return this.getInterlocuteur(demande);
+        // return this.displayClientPrenomAS(demande);
+        }else{
+          return this.getPayer(demande);
+        }
+     }
 
 
 

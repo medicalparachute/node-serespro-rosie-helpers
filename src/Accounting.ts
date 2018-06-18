@@ -40,8 +40,15 @@ export class Accounting {
 
   ficheClientFilter(demande)
   {
-
+    // MB XX ONLY generate for first mandat du client
     return true;
+  }
+
+  ficheClientFilterReasons(demande)
+  {
+
+
+    return '';
   }
 
   ficheClientHeaders()
@@ -67,7 +74,9 @@ export class Accounting {
       "Prénom de l'interlocuteur principal",
       "Fonction de l'interlocuteur principal",
       "Année scolaire",
-      "Portail Web"
+      "BLocker sms de relance",
+      "Portail Web",
+      "OSS"
       // "Courriel automatique de suivi de 1e rencontre",
       // "Modèle de courriel de suivi de 1e rencontre"
     ];
@@ -79,26 +88,40 @@ export class Accounting {
   {
     var crtRow = [];
         crtRow.push(this.DemandeService.displayClientGender(demande));
-        crtRow.push(this.DemandeService.displayClientNom(demande));
-        crtRow.push(this.DemandeService.displayClientPrenom(demande));
+        crtRow.push(this.DemandeService.displayClientNom(demande));             // etablissment: Nom de l'etablissement
+        crtRow.push(this.DemandeService.displayClientPrenom(demande));          // etablissment publique: CIUSS
+                                                                                // -  clinique privee, CPE, ecole, Residence: ajouter 'A/S' + {Civilite} {prenom} {nom} de la personne Responsable de la demande
         crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));
-        crtRow.push(this.DemandeService.displayClientDOB(demande));
-        crtRow.push(this.DemandeService.displayClientReference(demande));
+        crtRow.push(this.DemandeService.displayClientDOB(demande));             //
+        crtRow.push(this.DemandeService.displayClientOrigine(demande));  // MB XX IS IT ORIGINE?
         crtRow.push(this.DemandeService.displayAssignation(demande));
         crtRow.push(this.DemandeService.displayServiceSecteur(demande));
-        crtRow.push(this.DemandeService.displayDomicileAddressExport(demande));
-        crtRow.push(this.DemandeService.displayDomicileCodePostal(demande));
+
+
+        //crtRow.push(this.DemandeService.displayDomicileAddressExport(demande)); // MB XX displayClientAddressExport MODIFY TO WORK WITH POS
+        crtRow.push(this.DemandeService.displayBillingAddressExport(demande));           // etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
+
+
+        crtRow.push(this.DemandeService.displayDomicileCodePostal(demande));    // etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
         crtRow.push('Domicile');
-        crtRow.push(this.DemandeService.displayPersonnePhone(demande.client,0));
+        crtRow.push(this.DemandeService.displayBillingPhoneHome(demande)); // MB XX CHANGE TO INTERLOCUTEUR | etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
+                                                                                // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE use work phone instead of home phone
         crtRow.push('cell');
-        crtRow.push(this.DemandeService.displayPersonnePhone(demande.client,1));
-        crtRow.push(this.DemandeService.displayPersonneEmail(demande.client,0));
-        crtRow.push(this.DemandeService.displayInterlocuteurGender(demande));
-        crtRow.push(this.DemandeService.displayInterlocuteurNom(demande));
-        crtRow.push(this.DemandeService.displayInterlocuteurPrenom(demande));
-        crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));
+        crtRow.push(this.DemandeService.displayBillingPhoneCell(demande)); // MB XX CHANGE TO INTERLOCUTEUR
+
+
+
+        crtRow.push(this.DemandeService.displayBillingEmail(demande,0)); // MB XX CHANGE TO INTERLOCUTEUR
+                                                                                    // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
+        crtRow.push(this.DemandeService.displayInterlocuteurGender(demande));         // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
+        crtRow.push(this.DemandeService.displayInterlocuteurNom(demande));            // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
+        crtRow.push(this.DemandeService.displayInterlocuteurPrenom(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
+        crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayAnneeScolaire(demande));
+        crtRow.push('Non');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
         crtRow.push(this.DemandeService.displayServiceClientPortailWeb(demande));
+        crtRow.push('Non');  // OSS -> ALWAYS 'Non' . MB XX missing colonne
+
     return crtRow;
   }
 
@@ -112,8 +135,13 @@ export class Accounting {
 
   ficheIntervenantFilter(demande)
   {
-
+    // juste le premier mandat qui se fait exporté
     return true;
+  }
+  ficheIntervenantFilterReasons(demande)
+  {
+
+    return '';
   }
 
   ficheIntervenantHeaders()
@@ -140,6 +168,7 @@ export class Accounting {
          "Doit remettre une feuille de temps sign",
          "Compte rendu obligatoire après chaque r",
          "Portail Web",
+         "OSS"
         // "Courriel automatique de suivi de 1e rencontre",
         //  "Modèle de courriel de suivi de 1e rencontre"
        ];
@@ -153,7 +182,7 @@ export class Accounting {
 
           crtRow.push(this.DemandeService.displayMCProfessionalNom(demande));
           crtRow.push(this.DemandeService.displayMCProfessionalPrenom(demande));
-          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
+          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));  // SI pas de permis -> matricule (should be automatic)
           crtRow.push(this.DemandeService.displayMCEmployeurDMatricule(demande));
           crtRow.push(this.DemandeService.displayMCProfessionalGender(demande));
           crtRow.push(this.DemandeService.displayMCEmployeurDDOB2(demande));
@@ -163,17 +192,18 @@ export class Accounting {
           crtRow.push(this.DemandeService.displayMCEmployeurDAddressSet(demande));
           crtRow.push(this.DemandeService.displayMCEmployeurDAddressPostalWithSpace(demande));
           // crtRow.push(this.DemandeService.displayMCEmployeurDProfession(demande));
-          crtRow.push(this.DemandeService.displayServiceMetier(demande));
+          crtRow.push(this.DemandeService.displayMCProfessionalMetier(demande)); // MB XX change from service to taking the metier from professionnel
           crtRow.push("Maison");
           crtRow.push(this.DemandeService.displayMCEmployeurDPhoneHome(demande));
           crtRow.push("Cell");
           crtRow.push(this.DemandeService.displayMCEmployeurDPhoneCell(demande));
           crtRow.push(this.DemandeService.displayMCEmployeurDEmail(demande));
 
-          crtRow.push(this.DemandeService.displayMCEmployeurDCompetences(demande));
+          crtRow.push(this.DemandeService.displayMCProfessionalMetier(demande)); // MB XX take metier instead
           crtRow.push(this.DemandeService.displayServiceFeuilleDeTempsSign(demande));
           crtRow.push(this.DemandeService.displayServiceCompteRenduObligatoire(demande));
           crtRow.push(this.DemandeService.displayServiceIntervenantPortailWeb(demande));
+          crtRow.push("Non");
     return crtRow;
   }
 
@@ -187,8 +217,13 @@ export class Accounting {
 
   contratClientFilter(demande)
   {
-
+    // always generated
     return true;
+  }
+  contratClientFilterReasons(demande)
+  {
+
+    return '';
   }
 
   contratClientHeaders()
@@ -283,14 +318,13 @@ export class Accounting {
   {
     var crtRow = [];
     crtRow.push(this.DemandeService.displayClientNom(demande) + ', '+this.DemandeService.displayClientPrenom(demande));
+    //
+
 
     crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));
     crtRow.push(this.DemandeService.displayNumeroDeContrat(demande));
     crtRow.push(this.DemandeService.displayMCDateDebut(demande));
 
-
-    // admin - services -
-   // crtRow.push(this.DemandeService.displayDemandeType(demande));
     crtRow.push(this.DemandeService.displayServiceCodeDeContratClient(demande));
 
     crtRow.push(this.DemandeService.displayAssignation(demande));
@@ -349,13 +383,34 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayMCTarifTauxTVA(demande, 5));
 
 
-    //crtRow.push("Forfait ou À la carte");  // take from service
      crtRow.push(this.DemandeService.displayServiceBillingType(demande));
-    //crtRow.push("Email"); // constant
     crtRow.push(this.DemandeService.displayServiceModeDeTransmission(demande));
     crtRow.push(this.DemandeService.displayServiceModeleDeFacturation(demande));
 
     crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
+
+// --------------------------------------------------------------------------------------------
+//      when MC_READ -> this is null
+// --------------------------------------------------------------------------------------------
+
+  let demande_type = this.DemandeService.displayDemandeType(demande)
+  let mcType = this.DemandeService.displayMCType(demande);
+  if(mcType==='READ')
+  {
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreLigne1(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreLigne2(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreLigne3(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceName(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
+    crtRow.push(''); //  crtRow.push(this.DemandeService.displayMCTarifDureeNormale(demande, 0));
+    crtRow.push(''); //  crtRow.push(this.DemandeService.displayMCParticulariteContratClientService(demande));
+    crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteContratClient(demande));
+
+  }else{
+
+
     crtRow.push(this.DemandeService.displayLieuDeRencontreLigne1(demande));
     crtRow.push(this.DemandeService.displayLieuDeRencontreLigne2(demande));
     crtRow.push(this.DemandeService.displayLieuDeRencontreLigne3(demande));
@@ -364,54 +419,92 @@ export class Accounting {
 
 
     crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-    //crtRow.push(this.DemandeService.displayMCTarifHeure(demande, 0)); ??
+
     crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
     crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
-    //crtRow.push("Durée normale par rencontre (en mins)"); // adding a new param
+
 
      crtRow.push(this.DemandeService.displayMCTarifDureeNormale(demande, 0));
 
      crtRow.push(this.DemandeService.displayMCParticulariteContratClientService(demande));
     crtRow.push(this.DemandeService.displayMCParticulariteContratClient(demande));
 
-    // crtRow.push("Particularités pour contrat client");
-    // crtRow.push("Particularités relatives au partenariat");
+    }// not mcType READ
+// ---------------------------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------------------------
+//      only filled when MC_READ . otherwise is null
+// --------------------------------------------------------------------------------------------
+
+  //  The rest doesn't apply to Enfant / Adulte
+
+  if(mcType==='READ')
+  {
 
 
-    crtRow.push(this.DemandeService.displayMCDateFin(demande));
-    crtRow.push(this.DemandeService.displayEtablissement(demande));
-   // crtRow.push("Département"); // new parameter in Etablissment form
+    crtRow.push(this.DemandeService.displayMCDateFin(demande));       // MB XX -> date_fin_date doens't exist? i think it comes from tarifs in etbalissements. This doesn't apply to Enfant / Adulte
+    crtRow.push(this.DemandeService.displayEtablissement(demande));   // MB XX ->change to 'department'. get it fgrom POS
+                                                                        //     if department is blank -> 'N/A'
 
     crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
     crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
     crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
 
     crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
-    crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande)));
-    crtRow.push( this.DemandeService.displayMCResponsableContratPhone(demande));
+    crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
+    crtRow.push( this.DemandeService.displayMCResponsableContratPhone(demande));  // MB XX put all numbers,not just one
 
-    crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande)));
-    crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));
+    crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender prenom nom
+    crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX put all numbers,not just one
     crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
 
-    crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 0));
-    crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 1));
-    crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 2));
-    crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 3));
-    crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 4));
-    //crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 5));
-   // crtRow.push( 'Preavis si CDI');
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 0));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 1));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 2));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 3));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 4));
     crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
     crtRow.push( ''); // info relatives a ce contrat a faire appairaitre sur les factures
+                        // MB XX -> Nom du requérent: {gender} {prenom} {nom} de la personne assigner au feuille de temps (RESPONSABLE_TEMPS)
+                        //    if mc.bon_de_commande is not null -> append: "Bon de commande: {mc.bon_de_commande}"
+                        // if not READ => ''
+
+  }else{
+
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayMCDateFin(demande));       // MB XX -> date_fin_date doens't exist? i think it comes from tarifs in etbalissements. This doesn't apply to Enfant / Adulte
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayEtablissement(demande));   // MB XX ->change to 'department'. get it fgrom POS
+                                                                        //     if department is blank -> 'N/A'
+
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+      crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableContratPhone(demande));  // MB XX put all numbers,not just one
+
+      crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender prenom nom
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX put all numbers,not just one
+      crtRow.push(''); // crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
+
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 0));
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 1));
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 2));
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 3));
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 4));
+      crtRow.push(''); // crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
+      crtRow.push(''); // crtRow.push( '');
+
+  }
+// --------------------------------------------------------------------------------------------
+
 
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
-    // crtRow.push('Non');
-    // crtRow.push("Suivi rencontre 1");
-     crtRow.push( this.DemandeService.displayServiceModeleDeSuiviEmailWithAssignation(demande));
-
-    // make a new Modele de courriel suivi rencontre 1 + " - PersonneAssigneExport
-
+    crtRow.push( this.DemandeService.displayServiceModeleDeSuiviEmailWithAssignation(demande)); // MB xx -> only enfant / adulte
     crtRow.push(this.DemandeService.displayMCDateDebut(demande));
+
+
+
     return crtRow;
   }
 
@@ -419,14 +512,19 @@ export class Accounting {
   contratTravailQuery(isArchive:boolean)
   {
 
+    // make two lines if first mandat for professionnel
 
     return { exports_contrat_travail:isArchive};
   }
 
   contratTravailFilter(demande)
   {
-
     return true;
+  }
+  contratTravailFilterReasons(demande)
+  {
+
+    return '';
   }
 
   contratTravailHeaders()
@@ -481,47 +579,231 @@ export class Accounting {
     crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+', '+this.DemandeService.displayMCProfessionalPrenom(demande)));
          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
         crtRow.push(this.DemandeService.displayMCDateDebut(demande));
-        crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));
+        crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));   // MB XX si le contrat initial -> write ''
         crtRow.push(this.DemandeService.displayAssignation(demande));
-        crtRow.push(this.DemandeService.displayServiceContratTravail(demande));
-        crtRow.push(this.DemandeService.displayServiceContratTravailEmail(demande));
+        crtRow.push(this.DemandeService.displayServiceContratTravail(demande)); // MB XX  si MC READ === false -> and si contrat initial === true -> (service.secteur.code + ' Contrat initial - ' + professionnel.statut \n NEWLINE \n newline NO! A NEW ROW FOR NEW INTERVENANTS  service.contratTravail
+                                                                                  //
+
+                                                                                //           MC READ ===false  -> and si contrat initial === false -> service.contratTravail
+
+                                                                              // MB XX  MC READ === true  -> service.contratTravail + ' ' + [if(tarifs.date_fin_indeterminee === true) -> 'CDI' else -> 'CDD' ]+ ' ' + prof.statut
+
+
+                                                                              // sinon, get from service.contratTravail
+
+
+        crtRow.push(this.DemandeService.displayServiceContratTravailEmail(demande));  // // MB XX  si MC READ === false and si contrat initial === true -> 'Contrat initial - '+ prof.statut  + \n newline NO! A NEW ROW FOR NEW INTERVENANTS '+ demande.service.contratTravailEmail.code
+                                                                                        //  MB XX  si MC READ === false and si contrat initial === false -> demande.service.contratTravailEmail.code
+                                                                                        //  MB XX  si MC READ === true -> demande.service.contratTravailEmail.code + ' - ' prof.statut  + [if frais_deplacement_paye_etablissement===true -> + ' + Feuille deplacement']
+
+
+
+
         crtRow.push(this.DemandeService.displayMCTauxHoraire(demande));
         crtRow.push(this.DemandeService.displayMCProfessionalStatutVacances(demande));
         crtRow.push(this.DemandeService.displayMCPrimeHoraire(demande));
         crtRow.push(this.DemandeService.displayMCPrimeDeplacement(demande)); // ERROR
-        crtRow.push(this.DemandeService.displayServiceName(demande));
-        crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigneWithName(demande));
-        crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-        crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
-        crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
-        crtRow.push(this.DemandeService.displayMCParticulariteAssignation(demande));
-        crtRow.push(this.DemandeService.displayMCParticulariteAssignationService(demande));
-        crtRow.push(this.DemandeService.displayMCParticulariteForfaitProfessionnel(demande));
-        crtRow.push(this.DemandeService.displayMCDateFin(demande));
-        crtRow.push(this.DemandeService.displayEtablissement(demande));
-        crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+//  if (MC_READ === true || (MC READ === false and si contrat initial === true)  )-> leave section  blank
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        let mcType = this.DemandeService.displayMCType(demande);
+        if(mcType==='READ')
+        {
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceName(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigneWithName(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteAssignation(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteAssignationService(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteForfaitProfessionnel(demande));
+        }else{
+          crtRow.push(this.DemandeService.displayServiceName(demande));
+          crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigneWithName(demande));
+          crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+          crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
+          crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteAssignation(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteAssignationService(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteForfaitProfessionnel(demande));
+        }
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+//  if (MC_READ === false) leave blank
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+      if(mcType==='READ')
+      {
+        crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date
+        crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
+        crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
         crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
         crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
-        crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande)));
-        crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));
-        crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
-        crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 0));
-        crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 1));
-        crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 2));
-        crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 3));
-        crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 4));
+        crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
+        crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
+        crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
         crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
-       // crtRow.push( this.DemandeService.displayMCParticulariteAutres(demande, 5));
+      }else{
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+        crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
+        crtRow.push(''); // crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
+      }
 
-        // crtRow.push(this.DemandeService.displayServiceCourrielSuiviIntervenant(demande));
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
         crtRow.push('Non');
         crtRow.push("Suivi rencontre 1");
         crtRow.push(this.DemandeService.displayMCDateDebut(demande));
 
+
+
     return crtRow;
   }
 
+
+  contratTravailPremierContratFilter(demande)
+  {
+    return true;
+  }
+  contratTravailPremierContratFilterReasons(demande)
+  {
+
+    return '';
+  }
+  contratTravailPremierContratRow(demande)
+  {
+    var crtRow = [];
+
+    crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+', '+this.DemandeService.displayMCProfessionalPrenom(demande)));
+         crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
+        crtRow.push(this.DemandeService.displayMCDateDebut(demande));
+        crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));   // MB XX si le contrat initial -> write ''
+        crtRow.push(this.DemandeService.displayAssignation(demande));
+
+        crtRow.push(this.DemandeService.displayServiceContratTravailPremierContrat(demande)); // MB XX  si MC READ === false -> and si contrat initial === true -> (service.secteur.code + ' Contrat initial - ' + professionnel.statut \n NEWLINE \n newline NO! A NEW ROW FOR NEW INTERVENANTS  service.contratTravail
+                                                                                  //
+
+                                                                                //           MC READ ===false  -> and si contrat initial === false -> service.contratTravail
+
+                                                                              // MB XX  MC READ === true  -> service.contratTravail + ' ' + [if(tarifs.date_fin_indeterminee === true) -> 'CDI' else -> 'CDD' ]+ ' ' + prof.statut
+
+
+                                                                              // sinon, get from service.contratTravail
+
+
+        crtRow.push(this.DemandeService.displayServiceContratTravailEmailPremierContrat(demande));  // // MB XX  si MC READ === false and si contrat initial === true -> 'Contrat initial - '+ prof.statut  + \n newline NO! A NEW ROW FOR NEW INTERVENANTS '+ demande.service.contratTravailEmail.code
+                                                                                        //  MB XX  si MC READ === false and si contrat initial === false -> demande.service.contratTravailEmail.code
+                                                                                        //  MB XX  si MC READ === true -> demande.service.contratTravailEmail.code + ' - ' prof.statut  + [if frais_deplacement_paye_etablissement===true -> + ' + Feuille deplacement']
+
+
+
+
+        crtRow.push(this.DemandeService.displayMCTauxHoraire(demande));
+        crtRow.push(this.DemandeService.displayMCProfessionalStatutVacances(demande));
+        crtRow.push(this.DemandeService.displayMCPrimeHoraire(demande));
+        crtRow.push(this.DemandeService.displayMCPrimeDeplacement(demande)); // ERROR
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+//  if (MC_READ === true || (MC READ === false and si contrat initial === true)  )-> leave section  blank
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        let mcType = this.DemandeService.displayMCType(demande);
+        if(mcType==='READ')
+        {
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceName(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigneWithName(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteAssignation(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteAssignationService(demande));
+          crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteForfaitProfessionnel(demande));
+        }else{
+          crtRow.push(this.DemandeService.displayServiceName(demande));
+          crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigneWithName(demande));
+          crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+          crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
+          crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteAssignation(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteAssignationService(demande));
+          crtRow.push(this.DemandeService.displayMCParticulariteForfaitProfessionnel(demande));
+        }
+
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+//  if (MC_READ === false) leave blank
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+      if(mcType==='READ')
+      {
+        crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date
+        crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
+        crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
+        crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+        crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+        crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
+        crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
+        crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
+        crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
+      }else{
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+        crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
+        crtRow.push(''); // crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
+        crtRow.push(''); // crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
+      }
+
+// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+        crtRow.push('Non');
+        crtRow.push("Suivi rencontre 1");
+        crtRow.push(this.DemandeService.displayMCDateDebut(demande));
+
+
+
+    return crtRow;
+  }
 
   encaissementsQuery(isArchive:boolean)
   {
@@ -533,7 +815,13 @@ export class Accounting {
   encaissementsFilter(demande)
   {
 
+    // only create row if MC.prepayment_first_payment_done == true
     return true;
+  }
+  encaissementsFilterReasons(demande)
+  {
+
+    return '';
   }
 
   encaissementsHeaders()
@@ -584,8 +872,17 @@ export class Accounting {
 
   facturesPrepaiementFilter(demande)
   {
+    // if service.billingType.name === A la carte - Pas de Facture de prepaiement -> no row
+    // if service.billingType.name === Forfait - toujours Facture de prepaiement -> always row
+    // if service.billingType.name === A la carte - Facture de prepaiement conditionnelle
+                //    ->  if(mantantpaye < montant de la facture ) ->  create row else do not
 
     return true;
+  }
+  facturesPrepaiementFilterReasons(demande)
+  {
+
+    return '';
   }
 
   facturesPrepaiementHeaders()
@@ -674,22 +971,15 @@ export class Accounting {
 
 
               crtRow.push(crtDate.format(this._Constants.default.dateFormats.exports));
-              // crtRow.push("Code facture");
               crtRow.push("");
-              crtRow.push("PAYPAL"); // always set to A réception
-              // crtRow.push("Mode de règlement");
+              crtRow.push("PAYPAL");
               crtRow.push("A réception"); // always set to A réception
-              // crtRow.push("Format d’édition"); // format d'edition from the service
-              // crtRow.push(this.DemandeService.displayMCPrepaiementModeDeReglement(demande));
-             // crtRow.push(this.DemandeService.displayServicePrepaymentFormatEdition(demande));
              crtRow.push(this.DemandeService.displayServiceContratPrepaiementEmail(demande));
-              crtRow.push(this.DemandeService.displayNumeroDeContrat(demande));
-              // crtRow.push("Numéro de contrat");
+              crtRow.push(this.DemandeService.displayNumeroDeContrat(demande)); // MB XX review this
               crtRow.push(crtDate.format(this._Constants.default.dateFormats.exports));
               crtRow.push(this.DemandeService.displayServiceModeleDeFacturationPrepaiement(demande));
-
              crtRow.push(this.DemandeService.displayMCTarifCodeOgust(demande, 0));
-               crtRow.push(this.DemandeService.displayMCTarifDescriptionFromSubService(demande, 0));
+               crtRow.push(this.DemandeService.displayMCTarifDescriptionFromSubService(demande, 0));   // MB XX -> MAKE SURE WE HAVE SOUS-SERVICE DESCRIPTION
                crtRow.push(this.DemandeService.displayMCTarifQuantity(demande, 0));
                crtRow.push(this.DemandeService.displayMCTarifUnits(demande, 0));
                crtRow.push(this.DemandeService.displayMCTarifPrice(demande, 0));
@@ -775,6 +1065,8 @@ export class Accounting {
 
   employeurDProfileFilter(demande)
   {
+    // MB XX -> change this to professionnel.is_premier_mandat. which always changes after wevery mandat
+  //  create is_contrat_initial which doesn't change after READ
     if(this.DemandeService.displayMCEmployeurDIsPremierMandat(demande))
    {
     return true;
@@ -782,6 +1074,10 @@ export class Accounting {
      return false;
    }
     // return true;
+  }
+  employeurDProfileFilterReasons(demande)
+  {
+    return "Ce n'est pas le premier mandat du professionnel";
   }
   employeurDEmploiFilter(demande)
   {
@@ -793,6 +1089,10 @@ export class Accounting {
    }else{
      return false;
    }
+  }
+  employeurDEmploiFilterReasons(demande)
+  {
+    return "Ce n'est pas le premier mandat du professionnel";
   }
   employeurDGainsFilter(demande)
   {
@@ -806,6 +1106,38 @@ export class Accounting {
      return false;
    }
     // return true;
+  }
+  employeurDGainsFilterReasons(demande)
+  {
+    let first=true;
+    let reasons='';
+
+    if(this.DemandeService.displayMCEmployeurDIsPremierMandat(demande)===false)
+    {
+      reasons+="Ce n'est pas le premier mandat du professionnel";
+      first=false;
+    }
+    if(this.DemandeService.displayMCProfessionalStatutEmployment(demande)!=='Employé')
+    {
+      if(first===false)
+      {
+        reasons+=" - "
+      }
+      reasons+="Le statut du professionnel n'est pas Employé";
+      first=false;
+    }
+    if(this.DemandeService.displayMCProfessionalStatutVacances(demande)!=='Inclus')
+    {
+      if(first===false)
+      {
+        reasons+=" - "
+      }
+      reasons+="Les vacances du professionnel n'est pas Inclus";
+      first=false;
+    }
+
+    return reasons;
+
   }
 
   employeurDHeaders()
