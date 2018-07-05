@@ -102,11 +102,14 @@ export class Demande {
    {
      if(type === 'Enfant'|| type==='Adulte')
      {
-       return this.displayPersonneEmail(demande.client, 0);  // MB XX change from client to interlocuteur
+
+       return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change from client to interlocuteur
      }else{
+
        return this.displayMCResponsableContratEmail(demande);  //MB XX verify this is RESPONSABLE_CONTRAT
      }
    }
+   return this.emptyParameter;
  }
 
  displayCourrielEnvoiFacture(demande)
@@ -116,11 +119,15 @@ export class Demande {
    {
      if(type === 'Enfant'|| type==='Adulte')
      {
-       return this.displayPersonneEmail(demande.client, 0);  // MB XX change client to interlocuteur
+
+       return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change client to interlocuteur
      }else{
+
        return this.displayInterlocuteurEmail(demande);        //  MB XX change client to PAYABLE
      }
    }
+
+   return this.emptyParameter;
  }
 
  displayDemandeDateFin(demande)
@@ -3399,13 +3406,17 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
          && demande.mandatComble.tarifs != ''
          && demande.mandatComble.tarifs.length > 0
          && demande.mandatComble.tarifs.length > index
-         && typeof demande.mandatComble.tarifs[index].subService != 'undefined'
-         && demande.mandatComble.tarifs[index].subService != null
-         && typeof demande.mandatComble.tarifs[index].subService.description != 'undefined'
-        && demande.mandatComble.tarifs[index].subService.description != null
-         && demande.mandatComble.tarifs[index].subService.description != ''
+        //  && typeof demande.mandatComble.tarifs[index].subService != 'undefined'
+        //  && demande.mandatComble.tarifs[index].subService != null
+        //  && typeof demande.mandatComble.tarifs[index].subService.description != 'undefined'
+        // && demande.mandatComble.tarifs[index].subService.description != null
+        //  && demande.mandatComble.tarifs[index].subService.description != ''
+
+        && typeof demande.mandatComble.tarifs[index].description != 'undefined'
+        && demande.mandatComble.tarifs[index].description != null
+        && demande.mandatComble.tarifs[index].description != ''
     ){
-     return this.translateCodage(demande, demande.mandatComble.tarifs[index].subService.description, index);
+     return this.translateCodage(demande, demande.mandatComble.tarifs[index].description, index);
    }
    return this.emptyParameter;
   }
