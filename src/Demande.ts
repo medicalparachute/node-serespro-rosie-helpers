@@ -306,8 +306,22 @@ export class Demande {
     ){
       return demande.client.origine;
     }
+   return this.emptyParameter;
+ }
 
+ displayClientIsPremierMandat(demande)
+ {
 
+    if(demande != null
+         && typeof demande.client != 'undefined'
+         && demande.client != null
+         && typeof demande.client.is_premier_mandat != 'undefined'
+         && demande.client.is_premier_mandat != null
+         && demande.client.is_premier_mandat != ''
+
+    ){
+      return demande.client.is_premier_mandat;
+    }
    return this.emptyParameter;
  }
 
@@ -677,7 +691,7 @@ displayPhone(phone)
 displayBillingPhoneHome(demande)
 {
   let personne = this.getInterlocuteurOrPayerPerson(demande);
-  console.log('ldckmal personne: ',personne);
+
   return this.displayPersonnePhoneHome(personne);
 }
 displayBillingPhoneWork(demande)
@@ -2152,6 +2166,23 @@ return this.emptyParameter;
  return this.emptyParameter;
  }
 
+ displayMCParticulariteContratClientREAD(demande, index)
+ {
+   if(demande != null
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.particularites_contrat_client_read != 'undefined'
+         && demande.mandatComble.particularites_contrat_client_read != null
+         && demande.mandatComble.particularites_contrat_client_read != ''
+         && demande.mandatComble.particularites_contrat_client_read.length > 0
+         && demande.mandatComble.particularites_contrat_client_read.length > index
+
+    ){
+     return demande.mandatComble.particularites_contrat_client_read[index];
+   }
+ return this.emptyParameter;
+ }
+
 
 
  displayMCParticulariteForfaitProfessionnel(demande)
@@ -3046,9 +3077,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
            var crtTarif = rencontre.price;
            var crtDuree = rencontre.duree;
 
-           // console.log('crtAmount: ',crtAmount);
-           // console.log('crtTarif: ',crtTarif);
-           // console.log('crtDuree: ',crtDuree);
+
 
 
            if(typeof crtTarif!= 'undefined'
@@ -3941,24 +3970,26 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
      getInterlocuteur(demande)
      {
-       console.log('getInterlocuteur')
+
        if(demande != null
               && typeof demande.interlocuteur != 'undefined'
               && demande.interlocuteur != null
          ){
-           console.log('demande.interlocuteur: ',demande.interlocuteur)
+
            return demande.interlocuteur;
          }
          return null;
      }
      getPayer(demande)
      {
-       // if(demande != null
-       //        && typeof demande.interlocuteur != 'undefined'
-       //        && demande.interlocuteur != null
-       //   ){
-       //     return demande.interlocuteur;
-       //   }
+       if(demande != null
+              && typeof demande.mandatComble != 'undefined'
+              && demande.mandatComble != null
+              && typeof demande.mandatComble.payer != 'undefined'
+              && demande.mandatComble.payer != null
+         ){
+           return demande.mandatComble.payer;
+         }
          return null;
      }
 
@@ -3985,7 +4016,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
        if(demande_type === 'Enfant' || demande_type === 'Adulte')
        {
 
-         console.log('this.getInterlocuteur(demande): ',this.getInterlocuteur(demande));
+
          return this.getInterlocuteur(demande);
         // return this.displayClientPrenomAS(demande);
         }else{

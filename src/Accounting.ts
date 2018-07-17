@@ -41,12 +41,20 @@ export class Accounting {
   ficheClientFilter(demande)
   {
     // MB XX ONLY generate for first mandat du client
+    if(this.DemandeService.displayClientIsPremierMandat(demande)===false)
+    {
+      return false
+    }
     return true;
   }
 
   ficheClientFilterReasons(demande)
   {
 
+    if(this.DemandeService.displayClientIsPremierMandat(demande)===false)
+    {
+      return 'Ce n\'est pas le premier mandat du client';
+    }
 
     return '';
   }
@@ -136,10 +144,20 @@ export class Accounting {
   ficheIntervenantFilter(demande)
   {
     // juste le premier mandat qui se fait exporté
+    if(this.DemandeService.displayMCEmployeurDIsPremierMandat(demande)===false)
+    {
+      return false;
+    }
+
     return true;
   }
   ficheIntervenantFilterReasons(demande)
   {
+
+    if(this.DemandeService.displayMCEmployeurDIsPremierMandat(demande)===false)
+    {
+      return 'Ce n\'est pas le premier mandat de l\'intervenant';
+    }
 
     return '';
   }
@@ -458,11 +476,11 @@ export class Accounting {
     crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX put all numbers,not just one
     crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
 
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 0));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 1));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 2));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 3));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClient(demande, 4));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 0));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 1));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 2));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 3));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 4));
     crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
     crtRow.push( ''); // info relatives a ce contrat a faire appairaitre sur les factures
                         // MB XX -> Nom du requérent: {gender} {prenom} {nom} de la personne assigner au feuille de temps (RESPONSABLE_TEMPS)
@@ -502,7 +520,6 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push( this.DemandeService.displayServiceModeleDeSuiviEmailWithAssignation(demande)); // MB xx -> only enfant / adulte
     crtRow.push(this.DemandeService.displayMCDateDebut(demande));
-
 
 
     return crtRow;
@@ -816,10 +833,30 @@ export class Accounting {
   {
 
     // only create row if MC.prepayment_first_payment_done == true
+
+    let mcType = this.DemandeService.displayMCType(demande);
+    if(mcType==='READ')
+    {
+      return false;
+    }
+
+    if(this.DemandeService.displayMCPrepaiementFirstPaymentDone(demande)===false)
+    {
+      return false;
+    }
     return true;
   }
   encaissementsFilterReasons(demande)
   {
+    let mcType = this.DemandeService.displayMCType(demande);
+    if(mcType==='READ')
+    {
+      return 'Le tableau Encaissements ne s\'exporte pas pour les formulaires READ';
+    }
+    if(this.DemandeService.displayMCPrepaiementFirstPaymentDone(demande)===false)
+    {
+      return 'Le premier paiement n\'a pas été éffectué';
+    }
 
     return '';
   }
@@ -877,10 +914,45 @@ export class Accounting {
     // if service.billingType.name === A la carte - Facture de prepaiement conditionnelle
                 //    ->  if(mantantpaye < montant de la facture ) ->  create row else do not
 
+    let mcType = this.DemandeService.displayMCType(demande);
+    let billingType = this.DemandeService.displayServiceBillingTypeName(demande);
+    if(billingType==='À la carte - Pas de facture de prépaiement')
+    {
+      return false;
+    }
+
+    if(billingType==='À la carte - Facture de prepaiement conditionnelle')
+    {
+      let isMontant = this.DemandeService.displayMCMontantPayeMoinsQueMontantTotal(demande);
+      if(isMontant==='Non')
+      {
+        return false;
+      }
+
+    }
+
+
     return true;
   }
   facturesPrepaiementFilterReasons(demande)
   {
+
+    let mcType = this.DemandeService.displayMCType(demande);
+    let billingType = this.DemandeService.displayServiceBillingTypeName(demande);
+    if(billingType==='À la carte - Pas de facture de prépaiement')
+    {
+      return 'Le tableau prépaiement ne s\'exporte pas pour les formulaires À La Carte';
+    }
+
+    if(billingType==='À la carte - Facture de prepaiement conditionnelle')
+    {
+      let isMontant = this.DemandeService.displayMCMontantPayeMoinsQueMontantTotal(demande);
+      if(isMontant==='Non')
+      {
+        return 'La facture est conditionnelle, mais le montant payé est moins que le montant total';
+      }
+
+    }
 
     return '';
   }
