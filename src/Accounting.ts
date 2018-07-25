@@ -536,6 +536,10 @@ export class Accounting {
 
   contratTravailFilter(demande)
   {
+    if(this.DemandeService.displayMCProfessionnelContratInitial(demande)===false)
+    {
+      return false
+    }
     return true;
   }
   contratTravailFilterReasons(demande)

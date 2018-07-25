@@ -2502,6 +2502,24 @@ return this.emptyParameter;
    }
  return false;
  }
+ displayMCProfessionnelContratInitial(demande)
+ {
+   if(demande != null
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.professionnel != 'undefined'
+         && demande.mandatComble.professionnel != null
+         && typeof demande.mandatComble.professionnel.is_contrat_initial != 'undefined'
+         && demande.mandatComble.professionnel.is_contrat_initial != null
+         && demande.mandatComble.professionnel.is_contrat_initial != ''
+         && demande.mandatComble.professionnel.is_contrat_initial === true
+    ){
+     return true;
+   }
+ return false;
+ }
+
+
 
  displayMCEmployeurDMatricule(demande)
  {
