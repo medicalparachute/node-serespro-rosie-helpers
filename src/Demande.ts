@@ -123,7 +123,8 @@ export class Demande {
        return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change client to interlocuteur
      }else{
 
-       return this.displayInterlocuteurEmail(demande);        //  MB XX change client to PAYABLE
+       //return this.displayInterlocuteurEmail(demande);        //  MB XX change client to PAYABLE
+       return this.displayBillingEmail(demande, 0);
      }
    }
 
@@ -955,6 +956,8 @@ displayPersonneGender(personne)
      if(pos!==null && pos.etablissement!=='undefined' && pos.etablissement!==null)
      {
        return pos.etablissement;
+     }else{
+       return 'N/A';
      }
    }//client notnull
 
@@ -971,7 +974,7 @@ displayPersonneGender(personne)
     // }
     //
 
-   return this.emptyParameter;
+   return 'N/A';//this.emptyParameter;
  }
 
 
@@ -2114,8 +2117,10 @@ return this.emptyParameter;
    if(finIndetermine===false)
    {
      return this.formatMyDate(dateFin, this._Constants.default.dateFormats.exports);
+   }else{
+     return 'Indéterminé'
    }
-   return this.emptyParameter;
+   // return this.emptyParameter;
     //
     // if(demande != null
     //       && typeof demande.mandatComble != 'undefined'

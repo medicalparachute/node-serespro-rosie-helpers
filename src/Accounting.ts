@@ -536,11 +536,12 @@ export class Accounting {
 
   contratTravailFilter(demande)
   {
-    if(this.DemandeService.displayMCProfessionnelContratInitial(demande)===false)
-    {
-      return false
-    }
     return true;
+    // if(this.DemandeService.displayMCProfessionnelContratInitial(demande)===false)
+    // {
+    //   return false
+    // }
+    // return true;
   }
   contratTravailFilterReasons(demande)
   {
@@ -707,7 +708,19 @@ export class Accounting {
 
   contratTravailPremierContratFilter(demande)
   {
+    let mcType = this.DemandeService.displayMCType(demande);
+    if(mcType==='READ')
+    {
+      return false;
+    }
+    if(this.DemandeService.displayMCProfessionnelContratInitial(demande)===false)
+    {
+      return false
+    }
     return true;
+
+
+    // return true;
   }
   contratTravailPremierContratFilterReasons(demande)
   {
