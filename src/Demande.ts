@@ -2003,11 +2003,11 @@ displayMCProfessionalMetier(demande)
        && demande.mandatComble != null
        && typeof demande.mandatComble.professionnel != 'undefined'
        && demande.mandatComble.professionnel != null
-       && typeof demande.mandatComble.professionnel.competences != 'undefined'
-       && demande.mandatComble.professionnel.competences != null
+       && typeof demande.mandatComble.professionnel.profession_principale != 'undefined'
+       && demande.mandatComble.professionnel.profession_principale != null
 
   ){
-   return demande.mandatComble.professionnel.competences;
+   return demande.mandatComble.professionnel.profession_principale;
  }
 return this.emptyParameter;
 }
