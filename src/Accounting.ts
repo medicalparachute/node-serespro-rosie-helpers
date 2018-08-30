@@ -81,6 +81,12 @@ export class Accounting {
       "Nom de l'interlocuteur principal",
       "Prénom de l'interlocuteur principal",
       "Fonction de l'interlocuteur principal",
+      "Iterlocuteur : Téléphone professionnel ",
+      "Interlocuteur : Téléphone domicile",
+      "Interlocuteur : Téléphone mobile",
+      "Interlocuteur : Adresse courriel",
+      "Interlocuteur : Contact principal",
+      "Interlocuteur : Contact facturation",
       "Année scolaire",
       "BLocker sms de relance",
       "Portail Web",
@@ -124,7 +130,13 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayInterlocuteurGender(demande));         // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayInterlocuteurNom(demande));            // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayInterlocuteurPrenom(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
-        crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
+        crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));
+        crtRow.push('');
+        crtRow.push('');
+        crtRow.push('');
+        crtRow.push('');
+        crtRow.push('');
+        crtRow.push(''); 
         crtRow.push(this.DemandeService.displayAnneeScolaire(demande));
         crtRow.push('Non');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
         crtRow.push(this.DemandeService.displayServiceClientPortailWeb(demande));
