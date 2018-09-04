@@ -609,6 +609,29 @@ export class Demande {
  return this.emptyParameter;
  }
 
+ displayPersonneEmailByType(personne, _type)
+ {
+   if(personne != null
+         && typeof personne.emails != 'undefined'
+         && personne.emails != null
+         && personne.emails.length>0
+         //&& index>=0
+         //&& typeof personne.emails[index].address != 'undefined'
+
+
+    ){
+      for(let email of personne.emails)
+      {
+        if(email._type===_type){
+          return email.address
+        }
+
+      }
+    // return personne.emails[index].address;
+   }
+ return this.emptyParameter;
+ }
+
 
  displayPersonnePhone(personne, index)
  {
@@ -622,6 +645,29 @@ export class Demande {
 
     ){
      return personne.phones[index].number;
+   }
+ return this.emptyParameter;
+ }
+
+ displayPersonnePhoneByType(personne, _type)
+ {
+   if(personne != null
+         && typeof personne.phones != 'undefined'
+         && personne.phones != null
+         && personne.phones.length>0
+         //&& index>=0
+         //&& typeof personne.emails[index].address != 'undefined'
+
+
+    ){
+      for(let phone of personne.phones)
+      {
+        if(phone._type===_type){
+          return phone.number
+        }
+
+      }
+    // return personne.emails[index].address;
    }
  return this.emptyParameter;
  }
@@ -1528,7 +1574,7 @@ displayServiceJSON(demande)
  displayServiceCodeDeContratClient(demande)
  {
 
-  
+
    let mcType = this.displayMCType(demande);
    let SCT = this.getServiceCodeDeContratClient(demande);
    if(SCT===this.emptyParameter)
@@ -4090,6 +4136,19 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
         }else{
           return this.getPayer(demande);
         }
+     }
+
+
+     getInterlocuteurOrPayerEmail(demande)
+     {
+       let person = this.getInterlocuteurOrPayerPerson(demande);
+       return this.displayPersonneEmail(person, 0);
+     }
+
+     getInterlocuteurOrPayerPhoneByType(demande, _type)
+     {
+       let person = this.getInterlocuteurOrPayerPerson(demande);
+       return this.displayPersonnePhoneByType(person, _type);
      }
 
 

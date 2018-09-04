@@ -81,12 +81,18 @@ export class Accounting {
       "Nom de l'interlocuteur principal",
       "Prénom de l'interlocuteur principal",
       "Fonction de l'interlocuteur principal",
-      "Iterlocuteur : Téléphone professionnel ",
+      "Interlocuteur : Téléphone professionnel ",
+        // -> SAD - EDU -> INTERLOCUTEUR principale
+        //  -> READ -> contact payable
+
       "Interlocuteur : Téléphone domicile",
       "Interlocuteur : Téléphone mobile",
       "Interlocuteur : Adresse courriel",
+
       "Interlocuteur : Contact principal",
+      //Always Oui
       "Interlocuteur : Contact facturation",
+      //Always Oui
       "Année scolaire",
       "BLocker sms de relance",
       "Portail Web",
@@ -131,12 +137,12 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayInterlocuteurNom(demande));            // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayInterlocuteurPrenom(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));
-        crtRow.push('');
-        crtRow.push('');
-        crtRow.push('');
-        crtRow.push('');
-        crtRow.push('');
-        crtRow.push(''); 
+        crtRow.push(this.DemandeService.displayPersonnePhoneByType(demande, 'WORK'));
+        crtRow.push(this.DemandeService.displayPersonnePhoneByType(demande, 'HOME'));
+        crtRow.push(this.DemandeService.displayPersonnePhoneByType(demande, 'CELL'));
+        crtRow.push(this.DemandeService.getInterlocuteurOrPayerEmail(demande));
+        crtRow.push('Oui');
+        crtRow.push('Oui');
         crtRow.push(this.DemandeService.displayAnneeScolaire(demande));
         crtRow.push('Non');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
         crtRow.push(this.DemandeService.displayServiceClientPortailWeb(demande));
