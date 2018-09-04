@@ -138,8 +138,8 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayInterlocuteurPrenom(demande));           // etablissement, clinique privee, CPE, ecole, Residence: PAYABLE instead of interlocuteur
         crtRow.push(this.DemandeService.displayInterlocuteurFonction(demande));
         crtRow.push(this.DemandeService.displayInterlocuteurOrPayerPhoneByType(demande, 'WORK'));
-        crtRow.push(this.DemandeService.getInterlocuteurOrPayerPhoneByType(demande, 'HOME'));
-        crtRow.push(this.DemandeService.getInterlocuteurOrPayerPhoneByType(demande, 'CELL'));
+        crtRow.push(this.DemandeService.displayInterlocuteurOrPayerPhoneByType(demande, 'HOME'));
+        crtRow.push(this.DemandeService.displayInterlocuteurOrPayerPhoneByType(demande, 'CELL'));
         crtRow.push(this.DemandeService.displayInterlocuteurOrPayerEmail(demande));
         crtRow.push('Oui');
         crtRow.push('Oui');
