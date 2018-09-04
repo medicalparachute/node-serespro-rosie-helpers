@@ -4139,13 +4139,13 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
      }
 
 
-     getInterlocuteurOrPayerEmail(demande)
+     displayInterlocuteurOrPayerEmail(demande)
      {
        let person = this.getInterlocuteurOrPayerPerson(demande);
        return this.displayPersonneEmail(person, 0);
      }
 
-     getInterlocuteurOrPayerPhoneByType(demande, _type)
+     displayInterlocuteurOrPayerPhoneByType(demande, _type)
      {
        let person = this.getInterlocuteurOrPayerPerson(demande);
        return this.displayPersonnePhoneByType(person, _type);
