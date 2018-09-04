@@ -649,28 +649,28 @@ export class Demande {
  return this.emptyParameter;
  }
 
- displayPersonnePhoneByType(personne, _type)
- {
-   if(personne != null
-         && typeof personne.phones != 'undefined'
-         && personne.phones != null
-         && personne.phones.length>0
-         //&& index>=0
-         //&& typeof personne.emails[index].address != 'undefined'
-
-
-    ){
-      for(let phone of personne.phones)
-      {
-        if(phone._type===_type){
-          return phone.number
-        }
-
-      }
-    // return personne.emails[index].address;
-   }
- return this.emptyParameter;
- }
+ // displayPersonnePhoneByType(personne, _type)
+ // {
+ //   if(personne != null
+ //         && typeof personne.phones != 'undefined'
+ //         && personne.phones != null
+ //         && personne.phones.length>0
+ //         //&& index>=0
+ //         //&& typeof personne.emails[index].address != 'undefined'
+ //
+ //
+ //    ){
+ //      for(let phone of personne.phones)
+ //      {
+ //        if(phone._type===_type){
+ //          return phone.number
+ //        }
+ //
+ //      }
+ //    // return personne.emails[index].address;
+ //   }
+ // return this.emptyParameter;
+ // }
 
 
  getPersonnePhones(personne)
