@@ -1502,13 +1502,16 @@ displayServiceJSON(demande)
  }
 
 
- displayServiceCodeDeContratClient(demande)
+ getServiceCodeDeContratClient(demande)
  {
    // MB XX si form MC_READ ->
    //                 si date_fin_indeterminee ->
    //                           demande.service.contratClient.code + ' ' + - +' ' + CDI
    //                 si date_fin_indeterminee===false ->
    //                           demande.service.contratClient.code + ' ' + - +' ' + CDD
+
+
+
    if(demande != null
          && typeof demande.service != 'undefined'
          && demande.service != null
@@ -1520,7 +1523,33 @@ displayServiceJSON(demande)
     ){
      return demande.service.contratClient.code;
    }
- return this.emptyParameter;
+   return this.emptyParameter;
+ }
+ displayServiceCodeDeContratClient(demande)
+ {
+
+  
+   let mcType = this.displayMCType(demande);
+   let SCT = this.getServiceCodeDeContratClient(demande);
+   if(SCT===this.emptyParameter)
+   {
+     return this.emptyParameter;
+   }
+
+   if(mcType==='READ')
+   {
+     let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
+     let str = SCT + ' ';
+     if(dateFinIndet===true)
+     {
+       str+=' - CDI'
+     }else{
+       str+=' - CDD'
+     }
+     return str;
+   }// end READ
+
+   return SCT;
  }
 
  displayServiceModeleDeSuiviEmail(demande)
@@ -1797,14 +1826,15 @@ return this.emptyParameter;
    if(mcType==='READ')
    {
      let str = CTE+' - ';
-     let profStatut = this.displayMCProfessionalStatutEmployment(demande);
+     let profStatut = this.displayMCProfessionalStatutEmploymentShort(demande);
      let deplacement = this.getFraisDeplacementPayeEtablissement(demande);
+     //profStatut TA or EM
 
      str += profStatut;
-
+     str += ' Feuille de temps';
      if(deplacement===true)
      {
-       str += ' Feuille deplacement';
+       str += ' + Feuille deplacement';
      }
 
      return str;
@@ -2389,6 +2419,21 @@ return this.emptyParameter;
    }
  return this.emptyParameter;
  }
+ displayMCProfessionalStatutEmploymentShort(demande)
+ {
+
+   let profStatus = this.displayMCProfessionalStatutEmployment(demande);
+   if(profStatus==='Travailleur autonome')
+   {
+     return 'TA';
+   }
+   if(profStatus==='Employé')
+   {
+     return 'EM';
+   }
+   return this.emptyParameter;
+ }
+
  displayMCProfessionalStatutEmploymentCode(demande)
  {
    if(demande != null
