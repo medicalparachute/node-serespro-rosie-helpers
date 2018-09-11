@@ -1719,7 +1719,7 @@ displayServiceJSON(demande)
 
    if(this.displayMCMontantPayeMoinsQueMontantTotal(demande)==='Oui')
    {
-     return 'Facture de prépaiement - Facture payée';
+     return 'Facture de prépaiement';
    }
    if(demande != null
          && typeof demande.service != 'undefined'
