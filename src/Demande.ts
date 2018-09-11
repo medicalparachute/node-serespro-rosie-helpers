@@ -1585,7 +1585,7 @@ displayServiceJSON(demande)
    if(mcType==='READ')
    {
      let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
-     let str = SCT + ' ';
+     let str = SCT;
      if(dateFinIndet===true)
      {
        str+=' - CDI'
@@ -1627,7 +1627,7 @@ displayServiceJSON(demande)
        return this.emptyParameter;
      }
 
-     code = 'Suivi rencontre 1 - ' + code + ' - ' + this.displayAssignation(demande);
+     code =  code + ' - ' + this.displayAssignation(demande);
      return code;
    }else{
      return this.emptyParameter;
@@ -1871,7 +1871,7 @@ return this.emptyParameter;
 
    if(mcType==='READ')
    {
-     let str = CTE+' - ';
+     let str = CTE;
      let profStatut = this.displayMCProfessionalStatutEmploymentShort(demande);
      let deplacement = this.getFraisDeplacementPayeEtablissement(demande);
      //profStatut TA or EM

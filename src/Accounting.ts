@@ -1081,11 +1081,11 @@ export class Accounting {
               crtRow.push("");
               crtRow.push("PAYPAL");
               crtRow.push("A réception"); // always set to A réception
-             crtRow.push(this.DemandeService.displayServiceContratPrepaiementEmail(demande));
+              crtRow.push(this.DemandeService.displayServiceModeleDeFacturationPrepaiement(demande));
               crtRow.push(this.DemandeService.displayNumeroDeContrat(demande)); // MB XX review this
               crtRow.push(crtDate.format(this._Constants.default.dateFormats.exports));
-              crtRow.push(this.DemandeService.displayServiceModeleDeFacturationPrepaiement(demande));
-             crtRow.push(this.DemandeService.displayMCTarifCodeOgust(demande, 0));
+              crtRow.push(this.DemandeService.displayServiceContratPrepaiementEmail(demande));
+              crtRow.push(this.DemandeService.displayMCTarifCodeOgust(demande, 0));
                crtRow.push(this.DemandeService.displayMCTarifDescriptionFromSubService(demande, 0));   // MB XX -> MAKE SURE WE HAVE SOUS-SERVICE DESCRIPTION
                crtRow.push(this.DemandeService.displayMCTarifQuantity(demande, 0));
                crtRow.push(this.DemandeService.displayMCTarifUnits(demande, 0));
