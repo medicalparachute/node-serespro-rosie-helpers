@@ -1340,7 +1340,7 @@ export class Accounting {
     crtRow.push('');
     crtRow.push('');
     crtRow.push('');
-    crtRow.push('0.02');
+    crtRow.push('0,02');
     crtRow.push('1');
     crtRow.push(crtDate.format('YYYY/MM/DD'));
     crtRow.push('');
