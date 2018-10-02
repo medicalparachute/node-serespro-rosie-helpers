@@ -380,7 +380,7 @@ export class Demande {
 
 
 
-   return (this.displayClientNom(demande)+', '+this.displayClientPrenom(demande));
+   return (this.displayClientPrenom(demande) +' '+ this.displayClientNom(demande));
  }
 
  displayClientDOB(demande)
@@ -1825,8 +1825,9 @@ return this.emptyParameter;
    {
 
      let sectuer = this.displayServiceSecteur(demande);
-     let str = sectuer;
-     str += ' Contrat initial - ';
+     //let str = sectuer;
+     let str = '';
+     str += 'Contrat initial - ';
      str += this.displayMCProfessionalStatutEmployment(demande);
      return str;
   }// not READ
@@ -2090,7 +2091,7 @@ return this.emptyParameter;
 
  displayMCProfessionalFullName(demande)
 {
-  return (this.displayMCProfessionalNom(demande)+', '+this.displayMCProfessionalPrenom(demande));
+  return (this.displayMCProfessionalPrenom(demande)+' '+this.displayMCProfessionalNom(demande));
 }
 
 

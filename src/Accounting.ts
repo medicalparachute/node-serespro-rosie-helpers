@@ -616,7 +616,7 @@ export class Accounting {
   {
     var crtRow = [];
 
-    crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+', '+this.DemandeService.displayMCProfessionalPrenom(demande)));
+    crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+' '+this.DemandeService.displayMCProfessionalPrenom(demande)));
          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
         crtRow.push(this.DemandeService.displayMCDateDebut(demande));
         crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));   // MB XX si le contrat initial -> write ''
@@ -749,10 +749,10 @@ export class Accounting {
   {
     var crtRow = [];
 
-    crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+', '+this.DemandeService.displayMCProfessionalPrenom(demande)));
+    crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+' '+this.DemandeService.displayMCProfessionalPrenom(demande)));
          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
         crtRow.push(this.DemandeService.displayMCDateDebut(demande));
-        crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));   // MB XX si le contrat initial -> write ''
+        crtRow.push('');
         crtRow.push(this.DemandeService.displayAssignation(demande));
 
         crtRow.push(this.DemandeService.displayServiceContratTravailPremierContrat(demande)); // MB XX  si MC READ === false -> and si contrat initial === true -> (service.secteur.code + ' Contrat initial - ' + professionnel.statut \n NEWLINE \n newline NO! A NEW ROW FOR NEW INTERVENANTS  service.contratTravail
@@ -1340,7 +1340,7 @@ export class Accounting {
     crtRow.push('');
     crtRow.push('');
     crtRow.push('');
-    crtRow.push('0,02');
+    crtRow.push('0.02');
     crtRow.push('1');
     crtRow.push(crtDate.format('YYYY/MM/DD'));
     crtRow.push('');
