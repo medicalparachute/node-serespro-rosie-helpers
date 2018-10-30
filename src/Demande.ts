@@ -3688,7 +3688,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
         return '0';
       }
    }
-   return this.emptyParameter;
+   return '0';
    }
 
    displayMCPrepaiementOperationNumber(demande)

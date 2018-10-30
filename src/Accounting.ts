@@ -265,7 +265,7 @@ export class Accounting {
   contratClientHeaders()
   {
     var headers =[
-      "Nom, Prénom du client",
+      "Nom Prénom du client",
       "ID OGUST Client",
       "Numéro de contrat",
       "Date de début du contrat",
@@ -353,7 +353,7 @@ export class Accounting {
   contratClientRow(demande)
   {
     var crtRow = [];
-    crtRow.push(this.DemandeService.displayClientNom(demande) + ', '+this.DemandeService.displayClientPrenom(demande));
+    crtRow.push(this.DemandeService.displayClientNom(demande) + ' '+this.DemandeService.displayClientPrenom(demande));
     //
 
 
@@ -899,7 +899,7 @@ export class Accounting {
   encaissementsHeaders()
   {
     var headers =[
-      "Nom, Prénom du client",
+      "Nom Prénom du client",
        "ID Ogust Client",
        "Date de création",
        "Date comptable",
@@ -919,7 +919,7 @@ export class Accounting {
    let crtDate= moment(new Date());
 
 
-    crtRow.push( (this.DemandeService.displayClientNom(demande)+', '+this.DemandeService.displayClientPrenom(demande) ));
+    crtRow.push( (this.DemandeService.displayClientNom(demande)+' '+this.DemandeService.displayClientPrenom(demande) ));
      crtRow.push(this.DemandeService.displayClientIdOgustClient(demande));
      crtRow.push(crtDate.format(this._Constants.default.dateFormats.exports));
      crtRow.push(crtDate.format(this._Constants.default.dateFormats.exports));
