@@ -752,7 +752,7 @@ export class Accounting {
     crtRow.push((this.DemandeService.displayMCProfessionalNom(demande)+' '+this.DemandeService.displayMCProfessionalPrenom(demande)));
          crtRow.push(this.DemandeService.displayMCProfessionalPermis(demande));
         crtRow.push(this.DemandeService.displayMCDateDebut(demande));
-        crtRow.push('');
+        crtRow.push('Serespro');
         crtRow.push(this.DemandeService.displayAssignation(demande));
 
         crtRow.push(this.DemandeService.displayServiceContratTravailPremierContrat(demande)); // MB XX  si MC READ === false -> and si contrat initial === true -> (service.secteur.code + ' Contrat initial - ' + professionnel.statut \n NEWLINE \n newline NO! A NEW ROW FOR NEW INTERVENANTS  service.contratTravail
