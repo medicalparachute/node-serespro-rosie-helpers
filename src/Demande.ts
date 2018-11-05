@@ -3685,10 +3685,10 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
       {
         return demande.mandatComble.prepayment_amount_paid;
       }else{
-        return '0';
+        return 0;
       }
    }
-   return '0';
+   return 0;
    }
 
    displayMCPrepaiementOperationNumber(demande)
