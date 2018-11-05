@@ -3186,10 +3186,11 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
     var crtAmount = 0;
     for(let tarif of tarifs)
     {
+      var crtTarif = tarif.price;
          for(let rencontre of tarif.rencontres)
          {
 
-           var crtTarif = rencontre.price;
+           // var crtTarif = rencontre.price; //bug, is this deprecated?
            var crtDuree = rencontre.duree;
 
 
