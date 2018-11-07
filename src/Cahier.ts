@@ -6,6 +6,38 @@ export class Cahier {
 
     private emptyParameter = "";
 
+    private _Constants = {
+      default:{
+        dateFormats:{
+          picker: 'dd-mmm-yyyy',
+  		  	pickerOptions: {
+  		  		dateFormat: 'dd-mmm-yyyy',
+  		  		monthLabels: { 1: 'JAN', 2: 'FÉV', 3: 'MAR', 4: 'AVR', 5: 'MAI', 6: 'JUIN', 7: 'JUIL', 8: 'AOÛ', 9: 'SEP', 10: 'OCT', 11: 'NOV', 12: 'DÉC' }
+  		  	},
+  		  	exports: 'DD/MM/YYYY'
+        },
+        sexe:{
+      		  	M: {code: "M", display:"M", export: 'Monsieur', sexe:"M", civilite: "Monsieur"},
+      		  	F: {code: "F", display:"F", export: 'Madame', sexe:"F", civilite: "Madame"},
+      	},
+
+      }
+
+  }
+
+  formatMyDate(date, format)
+  {
+
+
+    var nd = moment(date);
+    if(typeof format === 'undefined' || format === null || format === '')
+    {
+      format = this._Constants.default.dateFormats.exports;
+    }
+
+    return nd.format(format);
+  }
+
   stringifyPhoneNumber(newVal)
   {
     // don't show braces for empty value
@@ -144,6 +176,89 @@ export class Cahier {
    name +=' ';
    name+=this.displayEnseignantNom(cahier);
    return name;
+ }
+
+ // Equipe Ecole
+
+ displayResponsableEcolePrenom(cahier)
+ {
+    if(cahier != null
+         && typeof cahier.ecole_prenom != 'undefined'
+         && cahier.ecole_prenom != null
+    ){
+      return cahier.ecole_prenom;
+    }
+   return this.emptyParameter;
+ }
+ displayResponsableEcoleNom(cahier)
+ {
+  if(cahier != null
+         && typeof cahier.ecole_nom != 'undefined'
+         && cahier.ecole_nom != null
+    ){
+      return cahier.ecole_nom;
+    }
+   return this.emptyParameter;
+ }
+ displayResponsableEcoleFullName(cahier)
+ {
+   let name = this.displayResponsableEcolePrenom(cahier);
+   name +=' ';
+   name+=this.displayResponsableEcoleNom(cahier);
+   return name;
+ }
+ displayResponsableEcoleFonction(cahier)
+ {
+  if(cahier != null
+         && typeof cahier.ecole_fonction != 'undefined'
+         && cahier.ecole_fonction != null
+    ){
+      return cahier.ecole_fonction;
+    }
+   return this.emptyParameter;
+ }
+ displayResponsableEcoleEmail(cahier)
+ {
+  if(cahier != null
+         && typeof cahier.ecole_email != 'undefined'
+         && cahier.ecole_email != null
+    ){
+      return cahier.ecole_email;
+    }
+   return this.emptyParameter;
+ }
+ displayDateEcole(cahier)
+ {
+   if(cahier != null
+          && typeof cahier.date_ecole != 'undefined'
+          && cahier.date_ecole != null
+     ){
+       return this.formatMyDate(cahier.date_ecole, this._Constants.default.dateFormats.exports);
+     }
+    return this.emptyParameter;
+
+ }
+ displayEcoleBesoins(cahier)
+ {
+   if(cahier != null
+          && typeof cahier.description_besoins != 'undefined'
+          && cahier.description_besoins != null
+     ){
+       return cahier.description_besoins;
+     }
+    return this.emptyParameter;
+
+ }
+ displayEcoleInfosImportantes(cahier)
+ {
+   if(cahier != null
+          && typeof cahier.infos_importantes != 'undefined'
+          && cahier.infos_importantes != null
+     ){
+       return cahier.infos_importantes;
+     }
+    return this.emptyParameter;
+
  }
 
 }
