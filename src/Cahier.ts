@@ -54,6 +54,39 @@ export class Cahier {
     }
     return newVal;
   }
+
+  // GENERAL
+displayRaison(cahier)
+{
+  if(cahier != null
+       && typeof cahier.raison != 'undefined'
+       && cahier.raison != null
+  ){
+    return cahier.raison;
+  }
+ return this.emptyParameter;
+}
+displayParentAttentes(cahier)
+{
+  if(cahier != null
+       && typeof cahier.attentes_du_parent != 'undefined'
+       && cahier.attentes_du_parent != null
+  ){
+    return cahier.attentes_du_parent;
+  }
+ return this.emptyParameter;
+}
+displayDifficultes(cahier)
+{
+  if(cahier != null
+       && typeof cahier.difficultes != 'undefined'
+       && cahier.difficultes != null
+  ){
+    return cahier.difficultes;
+  }
+ return this.emptyParameter;
+}
+
  // STUDENT
  displayStudentPrenom(cahier)
  {
@@ -148,6 +181,8 @@ export class Cahier {
    }
   return this.emptyParameter;
  }
+
+
 
  // ENSEIGNANT
  displayEnseignantPrenom(cahier)
@@ -261,4 +296,76 @@ export class Cahier {
 
  }
 
+
+ // RENCONTRES
+
+
+ displayRencontreProfessionnelPrenom(rencontre)
+ {
+    if(rencontre != null
+         && typeof rencontre.prof_prenom != 'undefined'
+         && rencontre.prof_prenom != null
+    ){
+      return rencontre.prof_prenom;
+    }
+   return this.emptyParameter;
+ }
+ displayRencontreProfessionnelNom(rencontre)
+ {
+  if(rencontre != null
+         && typeof rencontre.prof_nom != 'undefined'
+         && rencontre.prof_nom != null
+    ){
+      return rencontre.prof_nom;
+    }
+   return this.emptyParameter;
+ }
+ displayRencontreProfessionnelFullName(rencontre)
+ {
+   let name = this.displayRencontreProfessionnelPrenom(rencontre);
+   name +=' ';
+   name+=this.displayRencontreProfessionnelNom(rencontre);
+   return name;
+ }
+
+ displayRencontreDate(rencontre)
+ {
+   if(rencontre != null
+          && typeof rencontre.date != 'undefined'
+          && rencontre.date != null
+     ){
+       return this.formatMyDate(rencontre.date, this._Constants.default.dateFormats.exports);
+     }
+    return this.emptyParameter;
+ }
+ displayRencontreDateProchaine(rencontre)
+ {
+   if(rencontre != null
+          && typeof rencontre.date_prochaine != 'undefined'
+          && rencontre.date_prochaine != null
+     ){
+       return this.formatMyDate(rencontre.date_prochaine, this._Constants.default.dateFormats.exports);
+     }
+    return this.emptyParameter;
+ }
+ displayRencontreResume(rencontre)
+ {
+  if(rencontre != null
+         && typeof rencontre.resume != 'undefined'
+         && rencontre.resume != null
+    ){
+      return rencontre.resume;
+    }
+   return this.emptyParameter;
+ }
+ displayRencontreObjectifs(rencontre)
+ {
+  if(rencontre != null
+         && typeof rencontre.message != 'undefined'
+         && rencontre.message != null
+    ){
+      return rencontre.message;
+    }
+   return this.emptyParameter;
+ }
 }
