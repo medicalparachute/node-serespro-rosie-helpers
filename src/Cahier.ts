@@ -6,7 +6,22 @@ export class Cahier {
 
     private emptyParameter = "";
 
-
+  stringifyPhoneNumber(newVal)
+  {
+    // don't show braces for empty value
+    if (newVal.length == 0) {
+      newVal = '';
+    }
+    // don't show braces for empty groups at the end
+    else if (newVal.length <= 3) {
+      newVal = newVal.replace(/^(\d{0,3})/, '($1)');
+    } else if (newVal.length <= 6) {
+      newVal = newVal.replace(/^(\d{0,3})(\d{0,3})/, '($1) $2');
+    } else {
+      newVal = newVal.replace(/^(\d{0,3})(\d{0,3})(.*)/, '($1) $2-$3');
+    }
+    return newVal;
+  }
  // STUDENT
  displayStudentPrenom(cahier)
  {
@@ -25,17 +40,12 @@ export class Cahier {
  }
  displayStudentNom(cahier)
  {
-
     if(cahier != null
          && typeof cahier.student_nom != 'undefined'
          && cahier.student_nom != null
-
-
     ){
       return cahier.student_nom;
     }
-
-
    return this.emptyParameter;
  }
  displayStudentFullName(cahier)
@@ -44,6 +54,16 @@ export class Cahier {
    name +=' ';
    name+=this.displayStudentNom(cahier);
    return name;
+ }
+ displayAnneeScolaire(cahier)
+ {
+   if(cahier != null
+        && typeof cahier.anneeScolaire != 'undefined'
+        && cahier.anneeScolaire != null
+   ){
+     return cahier.anneeScolaire;
+   }
+  return this.emptyParameter;
  }
 
  // PARENT
@@ -73,6 +93,28 @@ export class Cahier {
    name +=' ';
    name+=this.displayParentNom(cahier);
    return name;
+ }
+
+ displayParentPhone(cahier)
+ {
+   if(cahier != null
+        && typeof cahier.parent_phone != 'undefined'
+        && cahier.parent_phone != null
+   ){
+     return this.stringifyPhoneNumber(cahier.parent_phone);
+   }
+  return this.emptyParameter;
+ }
+
+ displayParentEmail(cahier)
+ {
+   if(cahier != null
+        && typeof cahier.parent_email != 'undefined'
+        && cahier.parent_email != null
+   ){
+     return cahier.parent_email;
+   }
+  return this.emptyParameter;
  }
 
  // ENSEIGNANT
