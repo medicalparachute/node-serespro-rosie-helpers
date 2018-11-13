@@ -2760,21 +2760,21 @@ return this.emptyParameter;
  displayMCEmployeurDAddressProvince(demande)
  {
    if(demande != null
-         && typeof demande.mandat_comble != 'undefined'
-         && demande.mandat_comble != null
-         && typeof demande.mandat_comble.employeurD != 'undefined'
-         && demande.mandat_comble.employeurD != null
-         && typeof demande.mandat_comble.employeurD.place_and_address != 'undefined'
-         && demande.mandat_comble.employeurD.place_and_address != null
-         && typeof demande.mandat_comble.employeurD.place_and_address.address != 'undefined'
-         && demande.mandat_comble.employeurD.place_and_address.address != null
-         && typeof demande.mandat_comble.employeurD.place_and_address.address.province != 'undefined'
-         && demande.mandat_comble.employeurD.place_and_address.address.province != null
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.employeurD != 'undefined'
+         && demande.mandatComble.employeurD != null
+         && typeof demande.mandatComble.employeurD.place_and_address != 'undefined'
+         && demande.mandatComble.employeurD.place_and_address != null
+         && typeof demande.mandatComble.employeurD.place_and_address.address != 'undefined'
+         && demande.mandatComble.employeurD.place_and_address.address != null
+         && typeof demande.mandatComble.employeurD.place_and_address.address.province != 'undefined'
+         && demande.mandatComble.employeurD.place_and_address.address.province != null
 
 
 
     ){
-      return demande.mandat_comble.employeurD.place_and_address.address.province;
+      return demande.mandatComble.employeurD.place_and_address.address.province;
    }
    return this.emptyParameter;
  }
@@ -3044,16 +3044,16 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
  {
 
    if(demande != null
-         && typeof demande.mandat_comble != 'undefined'
-         && demande.mandat_comble != null
-         && typeof demande.mandat_comble.tarifs != 'undefined'
-         && demande.mandat_comble.tarifs != null
-         && demande.mandat_comble.tarifs != ''
-         && demande.mandat_comble.tarifs.length > 0
-         && demande.mandat_comble.tarifs.length > index
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.tarifs != 'undefined'
+         && demande.mandatComble.tarifs != null
+         && demande.mandatComble.tarifs != ''
+         && demande.mandatComble.tarifs.length > 0
+         && demande.mandatComble.tarifs.length > index
 
     ){
-     return JSON.stringify(demande.mandat_comble.tarifs[index]);
+     return JSON.stringify(demande.mandatComble.tarifs[index]);
    }
    return this.emptyParameter;
  }
@@ -3569,13 +3569,13 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
   displayMCRencontre(demande, index)
   {
     if(demande != null
-         && typeof demande.mandat_comble != 'undefined'
-         && demande.mandat_comble != null
-         && typeof demande.mandat_comble.tarifs != 'undefined'
-         && demande.mandat_comble.tarifs != null
-         && demande.mandat_comble.tarifs != ''
-         && demande.mandat_comble.tarifs.length > 0
-         && demande.mandat_comble.tarifs.length > index
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.tarifs != 'undefined'
+         && demande.mandatComble.tarifs != null
+         && demande.mandatComble.tarifs != ''
+         && demande.mandatComble.tarifs.length > 0
+         && demande.mandatComble.tarifs.length > index
     ){
 
       var item = '';
