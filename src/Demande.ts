@@ -1445,6 +1445,89 @@ displayServiceJSON(demande)
 
  }
 
+
+ getSubServices(demande)
+ {
+   if(demande != null
+         && typeof demande.service != 'undefined'
+         && demande.service != null
+         && typeof demande.service.subServices != 'undefined'
+         && demande.service.subServices != null
+    ){
+     return demande.service.subServices;
+   }
+ return [];
+ }
+
+ displaySubServiceUnit(subservice)
+ {
+    if(subservice != null
+         && typeof subservice.units != 'undefined'
+         &&  subservice.units != null
+    ){
+     return  subservice.units;
+   }
+   return this.emptyParameter;
+ }
+ displaySubServicePrice(subservice)
+ {
+    if(subservice != null
+         && typeof subservice.price != 'undefined'
+         &&  subservice.price != null
+    ){
+     return  subservice.price;
+   }
+   return 0;
+ }
+ displaySubServiceQuantity(subservice)
+ {
+    if(subservice != null
+         && typeof subservice.quantity != 'undefined'
+         &&  subservice.quantity != null
+    ){
+     return  subservice.quantity;
+   }
+   return 0;
+ }
+ displaySubServiceDuree(subservice)
+ {
+    if(subservice != null
+         && typeof subservice.duree != 'undefined'
+         &&  subservice.duree != null
+    ){
+     return  subservice.duree;
+   }
+   return 0;
+ }
+ displayServiceEstimatedPrice(demande)
+ {
+ 
+
+
+
+   let priceCount = 0;
+   let subservices = this.getSubServices(demande);
+   for(let subservice of subservices)
+   {
+     let unit = this.displaySubServiceUnit(subservice);
+     let price = parseFloat(this.displaySubServicePrice(subservice));
+     let qty = parseFloat(this.displaySubServiceQuantity(subservice));
+     let duree = parseFloat(this.displaySubServiceDuree(subservice));
+
+     if(unit === 'Qte')
+     {
+       priceCount+= qty * (duree / 60) * price;
+
+     }
+
+     if(unit === 'H')
+     {
+       priceCount+= qty *  price;
+     }
+   }
+   return priceCount;
+ }
+
  displayParticularitesNotes(demande)
  {
    if(demande != null
@@ -4152,6 +4235,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
        let person = this.getInterlocuteurOrPayerPerson(demande);
        return this.displayPersonnePhoneByType(person, _type);
      }
+
 
 
 
