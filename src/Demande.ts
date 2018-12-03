@@ -1,6 +1,6 @@
 
 import * as moment from 'moment';
-
+moment.locale('fr');
 export class Demande {
     // private covered: boolean = false;
     /* Some code in here :) */
