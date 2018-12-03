@@ -1,5 +1,6 @@
 
 import * as moment from 'moment';
+import 'moment/locale/fr';
 moment.locale('fr');
 export class Demande {
     // private covered: boolean = false;
@@ -32,6 +33,7 @@ export class Demande {
   {
 
 
+    moment.locale('fr');
     var nd = moment(date);
     if(typeof format === 'undefined' || format === null || format === '')
     {
