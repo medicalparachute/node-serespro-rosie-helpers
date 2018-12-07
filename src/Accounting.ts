@@ -957,7 +957,7 @@ export class Accounting {
       return false;
     }
 
-    if(billingType==='À la carte - Facture de prepaiement conditionnelle')
+    if(billingType==='À la carte - Facture de prépaiement conditionnel')
     {
       let isMontant = this.DemandeService.displayMCMontantPayeMoinsQueMontantTotal(demande);
       if(isMontant==='Non')
@@ -980,7 +980,7 @@ export class Accounting {
       return 'Le tableau prépaiement ne s\'exporte pas pour les formulaires À La Carte';
     }
 
-    if(billingType==='À la carte - Facture de prepaiement conditionnelle')
+    if(billingType==='À la carte - Facture de prépaiement conditionnel')
     {
       let isMontant = this.DemandeService.displayMCMontantPayeMoinsQueMontantTotal(demande);
       if(isMontant==='Non')
