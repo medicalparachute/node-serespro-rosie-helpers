@@ -2009,17 +2009,15 @@ return this.emptyParameter;
  displayServicePPIntervenant(demande)
  {
    if(demande != null
-         && typeof demande.services != 'undefined'
-         && demande.services != null
-         && typeof demande.services.service != 'undefined'
-         && demande.services.service != null
-         && typeof demande.services.service.particularitesPartenariatIntervenant != 'undefined'
-         && demande.services.service.particularitesPartenariatIntervenant != null
-         && typeof demande.services.service.particularitesPartenariatIntervenant.description != 'undefined'
-         && demande.services.service.particularitesPartenariatIntervenant.description != null
-         && demande.services.service.particularitesPartenariatIntervenant.description != ''
+         && typeof demande.service != 'undefined'
+         && demande.service != null
+         && typeof demande.service.particularitesPartenariatIntervenant != 'undefined'
+         && demande.service.particularitesPartenariatIntervenant != null
+         && typeof demande.service.particularitesPartenariatIntervenant.description != 'undefined'
+         && demande.service.particularitesPartenariatIntervenant.description != null
+         && demande.service.particularitesPartenariatIntervenant.description != ''
     ){
-     return demande.services.service.particularitesPartenariatIntervenant.description;
+     return demande.service.particularitesPartenariatIntervenant.description;
    }
  return this.emptyParameter;
  }
