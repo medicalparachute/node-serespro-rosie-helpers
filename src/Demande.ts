@@ -2301,37 +2301,37 @@ return this.emptyParameter;
  }
 
 
- // displayMCParticulariteContratClient(demande)
- // {
- //   if(demande != null
- //         && typeof demande.mandatComble != 'undefined'
- //         && demande.mandatComble != null
- //         && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
- //         && demande.mandatComble.particularites_contrat_client != null
- //         && demande.mandatComble.particularites_contrat_client != ''
+  displayMCParticulariteContratClient(demande)
+  {
+    if(demande != null
+          && typeof demande.mandatComble != 'undefined'
+          && demande.mandatComble != null
+          && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
+          && demande.mandatComble.particularites_contrat_client != null
+          && demande.mandatComble.particularites_contrat_client != ''
+ 
+     ){
+      return demande.mandatComble.particularites_contrat_client;
+    }
+  return this.emptyParameter;
+  }
+
+ //displayMCParticulariteContratClient(demande, index)
+ //{
+ //  if(demande != null
+ //        && typeof demande.mandatComble != 'undefined'
+ //        && demande.mandatComble != null
+ //        && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
+ //        && demande.mandatComble.particularites_contrat_client != null
+ //        && demande.mandatComble.particularites_contrat_client != ''
+ //        && demande.mandatComble.particularites_contrat_client.length > 0
+ //        && demande.mandatComble.particularites_contrat_client.length > index
  //
- //    ){
- //     return demande.mandatComble.particularites_contrat_client;
- //   }
+ //   ){
+ //    return demande.mandatComble.particularites_contrat_client[index];
+ //  }
  // return this.emptyParameter;
  // }
-
- displayMCParticulariteContratClient(demande, index)
- {
-   if(demande != null
-         && typeof demande.mandatComble != 'undefined'
-         && demande.mandatComble != null
-         && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
-         && demande.mandatComble.particularites_contrat_client != null
-         && demande.mandatComble.particularites_contrat_client != ''
-         && demande.mandatComble.particularites_contrat_client.length > 0
-         && demande.mandatComble.particularites_contrat_client.length > index
-
-    ){
-     return demande.mandatComble.particularites_contrat_client[index];
-   }
- return this.emptyParameter;
- }
 
  displayMCParticulariteContratClientREAD(demande, index)
  {
