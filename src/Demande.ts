@@ -1557,7 +1557,7 @@ displayServiceJSON(demande)
  cleanString(str)
  {  
     let item = str;
-    item = item.replace(/;/g, '\;');
+    item = item.replace(/;/g, ',');
     item = item.replace(/\n/g, " ");
     item = item.replace(/\r/g, " ");
     return item;
