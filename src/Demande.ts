@@ -1554,6 +1554,14 @@ displayServiceJSON(demande)
 
 
 
+ cleanString(str)
+ {  
+    let item = str;
+    item = item.replace(/;/g, '\;');
+    item = item.replace(/\n/g, " ");
+    item = item.replace(/\r/g, " ");
+    return item;
+ }
 
  translateCodage(demande, item, index)
  {
@@ -1617,7 +1625,7 @@ displayServiceJSON(demande)
          &&  demande.mandatComble.particularites_mode_de_transmission != ''
         )
        {
-         return  demande.mandatComble.particularites_mode_de_transmission;
+         return  this.cleanString(demande.mandatComble.particularites_mode_de_transmission);
        }else{
          return  this.emptyParameter;
        }
@@ -2001,7 +2009,7 @@ return this.emptyParameter;
          && demande.service.particularitesPartenariatClient.description != null
          && demande.service.particularitesPartenariatClient.description != ''
     ){
-     return demande.service.particularitesPartenariatClient.description;
+     return this.cleanString(demande.service.particularitesPartenariatClient.description);
    }
  return this.emptyParameter;
  }
@@ -2017,7 +2025,7 @@ return this.emptyParameter;
          && demande.service.particularitesPartenariatIntervenant.description != null
          && demande.service.particularitesPartenariatIntervenant.description != ''
     ){
-     return demande.service.particularitesPartenariatIntervenant.description;
+     return this.cleanString(demande.service.particularitesPartenariatIntervenant.description);
    }
  return this.emptyParameter;
  }
@@ -2309,7 +2317,7 @@ return this.emptyParameter;
           && demande.mandatComble.particularites_contrat_client != ''
  
      ){
-      return demande.mandatComble.particularites_contrat_client;
+      return this.cleanString(demande.mandatComble.particularites_contrat_client);
     }
   return this.emptyParameter;
   }
@@ -2343,7 +2351,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_contrat_client_read.length > index
 
     ){
-     return demande.mandatComble.particularites_contrat_client_read[index];
+     return this.cleanString(demande.mandatComble.particularites_contrat_client_read[index]);
    }
  return this.emptyParameter;
  }
@@ -2360,7 +2368,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_forfait_professionnel != ''
 
     ){
-     return demande.mandatComble.particularites_forfait_professionnel;
+     return this.cleanString(demande.mandatComble.particularites_forfait_professionnel);
    }
  return this.emptyParameter;
  }
@@ -2375,7 +2383,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_assignation != ''
 
     ){
-     return demande.mandatComble.particularites_assignation;
+     return this.cleanString(demande.mandatComble.particularites_assignation);
    }
  return this.emptyParameter;
  }
@@ -2390,7 +2398,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_assignation_service != ''
 
     ){
-     return demande.mandatComble.particularites_assignation_service;
+     return this.cleanString(demande.mandatComble.particularites_assignation_service);
    }
  return this.emptyParameter;
  }
@@ -2405,7 +2413,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_assignation_partenariat != ''
 
     ){
-     return demande.mandatComble.particularites_assignation_partenariat;
+     return this.cleanString(demande.mandatComble.particularites_assignation_partenariat);
    }
  return this.emptyParameter;
  }
@@ -2422,7 +2430,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_contrat_client_service != ''
 
     ){
-     return demande.mandatComble.particularites_contrat_client_service;
+     return this.cleanString(demande.mandatComble.particularites_contrat_client_service);
    }
  return this.emptyParameter;
  }
@@ -2440,7 +2448,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_autres.length > index
 
     ){
-     return demande.mandatComble.particularites_autres[index];
+     return this.cleanString(demande.mandatComble.particularites_autres[index]);
    }
  return this.emptyParameter;
  }
@@ -2457,7 +2465,7 @@ return this.emptyParameter;
          && demande.mandatComble.particularites_contrat_travail.length > index
 
     ){
-     return demande.mandatComble.particularites_contrat_travail[index];
+     return this.cleanString(demande.mandatComble.particularites_contrat_travail[index]);
    }
  return this.emptyParameter;
  }
