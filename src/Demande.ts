@@ -1799,7 +1799,7 @@ displayServiceJSON(demande)
   {
     return this.displayServiceContratPrepaiementEmailCode(demande);
   }else{
-    return "Facture payée";
+    return "Facture de prépaiement - Facture payée";
   }
  }
 
@@ -1810,10 +1810,10 @@ displayServiceJSON(demande)
    // if paye a 100% -> 'Facture de prépaiement - Facture payée'
    //
 
-   if(this.displayMCMontantPayeMoinsQueMontantTotal(demande)==='Oui')
-   {
-     return 'Facture de prépaiement';
-   }
+  // if(this.displayMCMontantPayeMoinsQueMontantTotal(demande)==='Oui')
+  // {
+  //   return 'Facture de prépaiement';
+  // }
    if(demande != null
          && typeof demande.service != 'undefined'
          && demande.service != null
@@ -3415,10 +3415,26 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date  != null
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date  != ''
     ){
+
+    // xzx if a confirmer, return ''Date à confirmer''
+    if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]))
+    {
+      return 'Date à confirmer';
+    }
+
      let crtDate: moment.Moment = moment(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
      return crtDate.format('dddd DD MMMM YYYY');
    }
    return this.emptyParameter;
+ }
+
+ getMCTarifRencontreEstAConfirmer(reconcontre)
+ {
+  if(rencontre!==null && typeof rencontre.date_a_confirmer!=='undefined' && rencontre.date_a_confirmer!==null)
+  {
+    return rencontre.date_a_confirmer;
+  }
+  return false;
  }
 
  displayMCTarifHeure(demande, iTarif, iRencontre)
@@ -3439,6 +3455,12 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].heure  != null
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].heure  != ''
     ){
+
+    // xzx if a confirmer, return ''Heure à confirmer''
+    if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]))
+    {
+      return 'Heure à confirmer';
+    }
      return demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].heure ;
    }
    return this.emptyParameter;
@@ -3669,6 +3691,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
          && demande.mandatComble.tarifs.length > index
     ){
 
+    // xzx if cocher a confirmer -> return either ""
       var item = '';
       item += this.displayMCTarifDateWritten(demande, index, 0);
       item += ', ';
