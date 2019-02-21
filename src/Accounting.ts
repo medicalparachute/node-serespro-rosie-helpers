@@ -42,6 +42,7 @@ export class Accounting {
   {
     // MB XX ONLY generate for first mandat du client
     let state = this.DemandeService.displayClientIsPremierMandat(demande);
+    console.log('ASASAS state :', state);
     if(state===false)
     {
       return false
