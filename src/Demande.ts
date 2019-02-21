@@ -325,7 +325,8 @@ export class Demande {
     ){
       return demande.client.is_premier_mandat;
     }
-   return this.emptyParameter;
+    return false;
+   //return this.emptyParameter;
  }
 
  displayClientPrenom(demande)
