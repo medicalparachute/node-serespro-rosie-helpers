@@ -41,22 +41,26 @@ export class Accounting {
   ficheClientFilter(demande)
   {
     // MB XX ONLY generate for first mandat du client
-    if(this.DemandeService.displayClientIsPremierMandat(demande)===false)
+    let state = this.DemandeService.displayClientIsPremierMandat(demande);
+    if(state===false)
     {
       return false
+    }else{
+      return true;
     }
-    return true;
+    
   }
 
   ficheClientFilterReasons(demande)
   {
 
-    if(this.DemandeService.displayClientIsPremierMandat(demande)===false)
+    let state = this.DemandeService.displayClientIsPremierMandat(demande);
+    if(state===false)
     {
       return 'Ce n\'est pas le premier mandat du client';
+    }else{
+      return '';
     }
-
-    return '';
   }
 
   ficheClientHeaders()
