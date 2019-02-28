@@ -3418,7 +3418,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
     ){
 
     // xzx if a confirmer, return ''Date à confirmer''
-    if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]))
+    if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre])===true)
     {
       return 'Date à confirmer';
     }
@@ -3431,9 +3431,9 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
  getMCTarifRencontreEstAConfirmer(rencontre)
  {
-  if(rencontre!==null && typeof rencontre.date_a_confirmer!=='undefined' && rencontre.date_a_confirmer!==null)
+  if(rencontre!==null && typeof rencontre.date_a_confirmer!=='undefined' && rencontre.date_a_confirmer!==null && rencontre.date_a_confirmer===true)
   {
-    return rencontre.date_a_confirmer;
+    return true;
   }
   return false;
  }
