@@ -1567,7 +1567,7 @@ displayServiceJSON(demande)
  translateCodage(demande, item, index)
  {
 
-   item = item.replace(/tarif_date/g, this.displayMCTarifDate(demande, index, 0));
+   item = item.replace(/tarif_date/g, this.displayMCTarifDateWritten(demande, index, 0));
    item = item.replace(/tarif_heure/g, this.displayMCTarifHeure(demande, index, 0));
 
       item = item.replace(/prof_prenom/g, this.displayMCProfessionalPrenom(demande));
