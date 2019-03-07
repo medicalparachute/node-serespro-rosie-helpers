@@ -1510,6 +1510,7 @@ displayServiceJSON(demande)
 
    let priceCount = 0;
    let subservices = this.getSubServices(demande);
+   let MCType = this.displayMCTypeFromService(demande);
    for(let subservice of subservices)
    {
      let unit = this.displaySubServiceUnit(subservice);
@@ -1517,9 +1518,17 @@ displayServiceJSON(demande)
      let qty = parseFloat(this.displaySubServiceQuantity(subservice));
      let duree = parseFloat(this.displaySubServiceDuree(subservice));
 
-     if(unit === 'Qte')
+
+     if(unit === 'Qte' || unit === 'Qté')
      {
-       priceCount+= qty * (duree / 60) * price;
+       if(MCType==='ForfaitEvaluation')
+       {
+         priceCount+= qty * price;
+       }else{
+         priceCount+= qty * (duree / 60) * price;
+       }
+
+
 
      }
 
@@ -1527,6 +1536,8 @@ displayServiceJSON(demande)
      {
        priceCount+= qty *  price;
      }
+
+     console.log('priceCount: ',priceCount);
    }
    return priceCount;
  }
@@ -2113,6 +2124,20 @@ return this.emptyParameter;
  return this.emptyParameter;
  }
 
+displayMCTypeFromService(demande)
+{
+  if(demande != null
+        && typeof demande.service != 'undefined'
+        && demande.service != null
+        && typeof demande.service.mandat_comble!=='undefined'
+        && demande.service.mandat_comble!==null
+  ){
+    return demande.service.mandat_comble;
+  }else{
+    return this.emptyParameter;
+  }
+  //mandat_comble
+}
 
 
  displayMCProfessionalName(demande)
