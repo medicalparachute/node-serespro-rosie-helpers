@@ -188,26 +188,28 @@ export class Demande {
    displayNumeroDeContrat(demande)
  {
 
- //   if(demande != null
- //         && typeof demande._id != 'undefined'
- //         && demande._id != null
+   if(demande != null
+         && typeof demande.mandatComble != 'undefined'
+         && demande.mandatComble != null
+         && typeof demande.mandatComble.numero_de_contrat != 'undefined'
+         && demande.mandatComble.numero_de_contrat != null
 
- //    ){
- //     return demande._id;
- //   }
- // return this.emptyParameter;
+    ){
+     return demande.mandatComble.numero_de_contrat;
+   }
+ return this.emptyParameter;
 
-     if(demande != null
-             && typeof demande.createdAt != 'undefined'
-             && demande.createdAt != null
-
-        ){
-
-         var nd = moment(demande.createdAt);
-       var out = 'C'+nd.format('YYMMDD')+this.displayShortID(demande);
-         return out;
-       }
-     return this.emptyParameter;
+     // if(demande != null
+     //         && typeof demande.createdAt != 'undefined'
+     //         && demande.createdAt != null
+     //
+     //    ){
+     //
+     //     var nd = moment(demande.createdAt);
+     //   var out = 'C'+nd.format('YYMMDD')+this.displayShortID(demande);
+     //     return out;
+     //   }
+     // return this.emptyParameter;
 
 
  }
