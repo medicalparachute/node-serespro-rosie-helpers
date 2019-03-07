@@ -1578,7 +1578,6 @@ displayServiceJSON(demande)
    // item = item.replace(/;/g, '\;');
     item = item.replace(/\n/g, " ");
 
-  //  console.log(item);
    return item;
  }
 
@@ -3172,7 +3171,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
  getRawMCTarifIndex(demande, index)
  {
     let tarifs = this.getRawMCTarif(demande);
-    if(tarifs!==null && index>0 && index<tarifs.length)
+    if(tarifs!==null && index>=0 && index<tarifs.length)
     {
       return tarifs[index];
     }
@@ -3190,7 +3189,7 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
  getRawMCTarifRencontreIndex(demande, iTarif, iRencontre)
  {
    let rencontres = this.getRawMCTarifRencontre(demande, iTarif);
-   if(rencontres!==null && iRencontre>0 && iRencontre<rencontres.length)
+   if(rencontres!==null && iRencontre>=0 && iRencontre<rencontres.length)
    {
      return rencontres[iRencontre];
    }
@@ -3418,18 +3417,14 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
     ){
 
     // xzx if a confirmer, return ''Date à confirmer''
-  //  console.log('demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]: ',demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]);
     if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre])===true)
     {
-    //  console.log('Date à confirmer');
       return 'Date à confirmer';
     }
 
      let crtDate: moment.Moment = moment(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
-     //console.log(crtDate.format('dddd DD MMMM YYYY'));
     return crtDate.format('dddd DD MMMM YYYY');
    }
-   //console.log('empty');
    return this.emptyParameter;
  }
 
@@ -3753,17 +3748,25 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
      //return this.displayMCRencontre(demande, 0);
 
      var item = '';
+     var count = 0;
      for(var i=1; i<6; i++)
      {
-       var tmp = this.displayMCRencontre(demande, i);
-       if(tmp != '')
+
+      let rencontre = this.getRawMCTarifRencontreIndex(demande, i, 0);
+       let isUnconfirmed = this.getMCTarifRencontreEstAConfirmer(rencontre)
+
+       if(isUnconfirmed===false)
        {
-         if(i>1)
+         let tmp = this.displayMCRencontre(demande, i);
+         if(tmp != '')
          {
-           item += ' & ';
+           if(i>1)
+           {
+             item += ' & ';
+           }
+           item += tmp;
          }
-         item += tmp;
-       }
+       }//isUnconfirmed
      }
 
      if(item === '')
