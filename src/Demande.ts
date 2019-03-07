@@ -1504,7 +1504,7 @@ displayServiceJSON(demande)
  }
  displayServiceEstimatedPrice(demande)
  {
- 
+
 
 
 
@@ -1556,7 +1556,7 @@ displayServiceJSON(demande)
 
 
  cleanString(str)
- {  
+ {
     let item = str;
     item = item.replace(/;/g, ',');
     item = item.replace(/\n/g, " ");
@@ -1578,7 +1578,7 @@ displayServiceJSON(demande)
    // item = item.replace(/;/g, '\;');
     item = item.replace(/\n/g, " ");
 
-
+  //  console.log(item);
    return item;
  }
 
@@ -2316,7 +2316,7 @@ return this.emptyParameter;
           && typeof demande.mandatComble.particularites_contrat_client != 'undefined'
           && demande.mandatComble.particularites_contrat_client != null
           && demande.mandatComble.particularites_contrat_client != ''
- 
+
      ){
       return this.cleanString(demande.mandatComble.particularites_contrat_client);
     }
@@ -3418,14 +3418,18 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
     ){
 
     // xzx if a confirmer, return ''Date à confirmer''
+  //  console.log('demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]: ',demande.mandatComble.tarifs[iTarif].rencontres[iRencontre]);
     if(this.getMCTarifRencontreEstAConfirmer(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre])===true)
     {
+    //  console.log('Date à confirmer');
       return 'Date à confirmer';
     }
 
      let crtDate: moment.Moment = moment(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
-     return crtDate.format('dddd DD MMMM YYYY');
+     //console.log(crtDate.format('dddd DD MMMM YYYY'));
+    return crtDate.format('dddd DD MMMM YYYY');
    }
+   //console.log('empty');
    return this.emptyParameter;
  }
 
