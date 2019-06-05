@@ -176,7 +176,7 @@ export class Demande {
       && !isNil(demande.profile_requis_profils)
       && demande.profile_requis_profils != '')
    {
-     return this.profile_requis_profils;
+     return demande.profile_requis_profils;
    }
    return this.emptyParameter;
  }
