@@ -198,7 +198,7 @@ export class Demande {
       && !isNil(demande.profile_requis_bilingue)
       && demande.profile_requis_bilingue !== '')
    {
-     return this.profile_requis_bilingue;
+     return demande.profile_requis_bilingue;
    }
    return this.emptyParameter;
  }
@@ -645,6 +645,17 @@ export class Demande {
 
     ){
      return demande.assignedTo.name;
+   }
+ return this.emptyParameter;
+ }
+
+ displayAssignationEmail(demande)
+ {
+   if(!isNil(demande)
+         && !isNil(demande.assignedTo)
+         && !isNil(demande.assignedTo.email)
+    ){
+     return demande.assignedTo.email;
    }
  return this.emptyParameter;
  }
