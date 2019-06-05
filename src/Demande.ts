@@ -1057,7 +1057,7 @@ displayPersonneGender(personne)
     if(!isNil(demande)
          && !isNil(demande.interlocuteur)
     ){
-      return this.displayPersonneEmail(demande.interlocuteur);
+      return this.displayPersonneEmail(demande.interlocuteur, 0);
     }
 
 
