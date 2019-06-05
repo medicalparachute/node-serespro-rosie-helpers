@@ -53,3 +53,11 @@ Output files explained:
     2. dist                               - directory contains the compiled library (javascript + typings)
     3. <module_name>-<module_version>.tgz - final tgz file for publish. (result of npm run pack)
     4. coverage                           - code coverage report output made by istanbul
+
+
+### Usage:
+----
+
+There are two modules Accounting, and demande
+
+### Accounting:

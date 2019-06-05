@@ -1,6 +1,6 @@
 {
   "name": "serespro-rosie-helpers",
-  "version": "1.0.54",
+  "version": "1.0.55",
   "description": "Helpers for the Serespro Rosie project by Medical Parachute",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -57,7 +57,10 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "moment": "^2.21.0"
+    "handlebars": "^4.1.2",
+    "lodash": "^4.17.11",
+    "moment": "^2.21.0",
+    "sshpk": "^1.16.1"
   },
   "jest": {
     "transform": {

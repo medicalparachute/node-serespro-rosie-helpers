@@ -1,6 +1,8 @@
 
 import * as moment from 'moment';
 import 'moment/locale/fr';
+
+import { isNil } from 'lodash';
 moment.locale('fr');
 export class Demande {
     // private covered: boolean = false;
@@ -167,6 +169,73 @@ export class Demande {
    return this.emptyParameter;
 
  }
+
+ displayProfilsRequis(demande)
+ {
+   if(!isNil(demande)
+      && !isNil(demande.profile_requis_profils)
+      && demande.profile_requis_profils != '')
+   {
+     return this.profile_requis_profils;
+   }
+   return this.emptyParameter;
+ }
+
+ displayVoitureRequis(demande)
+ {
+   if(!isNil(demande)
+      && !isNil(demande.profile_requis_voiture_requis)
+      && demande.profile_requis_voiture_requis === true)
+   {
+     return 'Oui';
+   }
+   return 'Non';
+ }
+
+ displayBilingueRequis(demande)
+ {
+   if(!isNil(demande)
+      && !isNil(demande.profile_requis_bilingue)
+      && demande.profile_requis_bilingue !== '')
+   {
+     return this.profile_requis_bilingue;
+   }
+   return this.emptyParameter;
+ }
+
+ displayTypeClientele(demande, index)
+ {
+   if(!isNil(demande)
+    && !isNil(demande.type_clientele)
+    && index >=0
+    && demande.type_clientele.length>index
+   ){
+     return demande.type_clientele[index];
+   }
+   return this.emptyParameter;
+ }
+ displayAllTypeClientele(demande)
+ {
+   if(!isNil(demande)
+    && !isNil(demande.type_clientele)
+    && demande.type_clientele.length>0
+   ){
+     let str='';
+     for(let i=0; i< demande.type_clientele.length; i++)
+     {
+       if(i>0)
+       {
+         str+=', '
+       }
+       str+=this.displayTypeClientele(demande, i);
+
+     }
+   }else{
+     return this.emptyParameter;
+   }
+
+ }
+
 
  displayShortID(demande)
  {
@@ -956,22 +1025,28 @@ displayPersonneGender(personne)
    return this.emptyParameter;
  }
 
- displayInterlocuteurEmail(demande)
+ displayInterlocuteurEmail(demande, index)
  {
 
-    if(demande != null
-         && typeof demande.interlocuteur != 'undefined'
-         && demande.interlocuteur != null
-         && typeof demande.interlocuteur.emails != 'undefined'
-         && demande.interlocuteur.emails != null
-         && typeof demande.interlocuteur.emails.primary != 'undefined'
-         && demande.interlocuteur.emails.primary != null
-         && typeof demande.interlocuteur.emails.primary.address != 'undefined'
-         && demande.interlocuteur.emails.primary.address != null
-         && demande.interlocuteur.emails.primary.address != ''
+    // if(demande != null
+    //      && typeof demande.interlocuteur != 'undefined'
+    //      && demande.interlocuteur != null
+    //      && typeof demande.interlocuteur.emails != 'undefined'
+    //      && demande.interlocuteur.emails != null
+    //      && typeof demande.interlocuteur.emails.primary != 'undefined'
+    //      && demande.interlocuteur.emails.primary != null
+    //      && typeof demande.interlocuteur.emails.primary.address != 'undefined'
+    //      && demande.interlocuteur.emails.primary.address != null
+    //      && demande.interlocuteur.emails.primary.address != ''
+    //
+    // ){
+    //   return demande.interlocuteur.emails.primary.address;
+    // }
 
+    if(!isNil(demande)
+         && !isNil(demande.interlocuteur)
     ){
-      return demande.interlocuteur.emails.primary.address;
+      return this.displayPersonneEmail(demande.interlocuteur);
     }
 
 
@@ -991,7 +1066,7 @@ displayPersonneGender(personne)
 
 
     ){
-      return demande.interlocuteur.phones[index].number;
+      return this.displayPhone(demande.interlocuteur.phones[index]);//demande.interlocuteur.phones[index].number;
     }
 
 
