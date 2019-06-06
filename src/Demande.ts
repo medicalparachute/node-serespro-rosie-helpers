@@ -660,6 +660,17 @@ export class Demande {
  return this.emptyParameter;
  }
 
+ displayAssignationPoste(demande)
+ {
+   if(!isNil(demande)
+         && !isNil(demande.assignedTo)
+         && !isNil(demande.assignedTo.poste)
+    ){
+     return demande.assignedTo.poste;
+   }
+ return this.emptyParameter;
+ }
+
 
  displayClientPhone(client, index)
  {
