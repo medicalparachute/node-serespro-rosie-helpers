@@ -49,7 +49,7 @@ export class Accounting {
     }else{
       return true;
     }
-    
+
   }
 
   ficheClientFilterReasons(demande)
@@ -327,6 +327,7 @@ export class Accounting {
       "Durée 1e rencontre (en mins)",
       "Autres rencontres confirmées",
       "Durée normale par rencontre (en mins)",
+      "Numéro de téléphone de l’intervenant",
       "Particularités pour contrat client",
       "Particularités relatives au partenariat",
       "Date de fin",
@@ -466,6 +467,8 @@ export class Accounting {
 
 
      crtRow.push(this.DemandeService.displayMCTarifDureeNormale(demande, 0));
+
+     crtRow.push(''); //Numéro de tel de l’intervenant
 
      crtRow.push(this.DemandeService.displayMCParticulariteContratClientService(demande));
     crtRow.push(this.DemandeService.displayMCParticulariteContratClient(demande));
