@@ -1145,6 +1145,17 @@ displayPersonneGender(personne)
    return this.emptyParameter;
  }
 
+ displayAnneeScolaireShort(demande)
+ {
+    if(!isNil(demande)
+         && !isNil( demande.anneeScolaire)
+         && !isNil( demande.anneeScolaire.name_display)
+    ){
+      return demande.anneeScolaire.name_display;
+    }
+   return this.emptyParameter;
+ }
+
 
  displayLieuDeRencontreLigne1(demande)
  {
@@ -1175,6 +1186,14 @@ displayPersonneGender(personne)
  {
 
    return (this.displayLieuDeRencontreLigne2(demande) + ', ' + this.displayLieuDeRencontreLigne3(demande)).toUpperCase();
+ }
+
+ displayLieuDeRencontreUneLigneShort(demande)
+ {
+   // NEED ARRONDISSEMENT... Do it on the client
+
+   return (this.displayLieuDeRencontreName(demande) + ', ')
+   //return (this.displayLieuDeRencontreLigne2(demande) + ', ' + this.displayLieuDeRencontreLigne3(demande)).toUpperCase();
  }
 
  displayLieuDeRencontreUneLigneWithName(demande)
@@ -1397,6 +1416,20 @@ displayServiceJSON(demande)
          && demande.service.name != ''
     ){
      return demande.service.name;
+   }
+ return this.emptyParameter;
+ }
+
+ displayServiceNameShort(demande)
+ {
+   if(demande != null
+         && typeof demande.service != 'undefined'
+         && demande.service != null
+         && typeof demande.service.name_display != 'undefined'
+         && demande.service.name_display != null
+         && demande.service.name_display != ''
+    ){
+     return demande.service.name_display;
    }
  return this.emptyParameter;
  }
