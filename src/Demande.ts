@@ -1095,6 +1095,8 @@ displayPersonneGender(personne)
    return this.emptyParameter;
  }
 
+
+
  displayEtablissement(demande)
  {
    let client = this.getClient(demande);
@@ -2342,6 +2344,58 @@ return this.emptyParameter;
   return (this.displayMCProfessionalPrenom(demande)+' '+this.displayMCProfessionalNom(demande));
 }
 
+getProfessionnelIsAllowedPhone(professionnel)
+{
+  if(!isNil(professionnel) && !isNil(professionnel.prof_accepte_tel_entente))
+  {
+    return professionnel.prof_accepte_tel_entente;
+  }
+  return false;
+}
+
+displayProfessionnelPhone(professionnel, index)
+{
+  if(
+    !isNil(professionnel) && !isNil(professionnel.phones)
+    && index>=0 && index<professionnel.phones.length
+  )
+  {
+      return professionnel.phones[index].number
+  }
+  return this.emptyParameter;
+}
+displayProfessionnelPhoneByType(professionnel, type)
+{
+  if(
+    !isNil(professionnel) && !isNil(professionnel.phones)
+    && professionnel.phones.length>0
+  )
+  {
+    for(let phone of professionnel.phones)
+    {
+      if(phone._type === type)
+      {
+        return phone.number;
+      }
+    }
+      //return professionnel.phones[index].number
+  }
+  return this.emptyParameter;
+}
+displayMCProfessionalPhoneIfAllowed(demande)
+{
+  if(!isNil(demande) && !isNil(demande.mandatComble) && !isNil(demande.mandatComble.professionnel))
+  {
+    let prof = demande.mandatComble.professionnel;
+    let isAllowed = this.getProfessionnelIsAllowedPhone(prof);
+
+    if(isAllowed)
+    {
+      return this.displayProfessionnelPhoneByType(prof, 'CELL');
+    }
+  }
+  return 'Valider avec l’intervenant lors de la première rencontre';
+}
 
 displayMCDateDebut(demande)
  {

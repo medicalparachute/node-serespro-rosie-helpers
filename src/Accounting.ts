@@ -468,7 +468,7 @@ export class Accounting {
 
      crtRow.push(this.DemandeService.displayMCTarifDureeNormale(demande, 0));
 
-     crtRow.push(''); //Numéro de tel de l’intervenant
+     crtRow.push(this.DemandeService.displayMCProfessionalPhoneIfAllowed(demande)); //Numéro de tel de l’intervenant
 
      crtRow.push(this.DemandeService.displayMCParticulariteContratClientService(demande));
     crtRow.push(this.DemandeService.displayMCParticulariteContratClient(demande));
