@@ -1143,18 +1143,19 @@ export class Accounting {
 
               // crtRow.push(this.DemandeService.displayMCPrepaiementModeDeReglement(demande));
               crtRow.push(this.DemandeService.displayServiceBillingTypePrepayment(demande));
-              crtRow.push("Oui"); // always Oui
-              crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 2)); //date premiere rencontre - 2 jours
+              crtRow.push(this.DemandeService.displayMCIsRappelA(demande)); // always Oui
+              // let today = moment();
+              crtRow.push(this.DemandeService.displayTodayMinusDays(demande, -3));
               crtRow.push(heureDeRappel); // 11:00
-              crtRow.push("RAPPEL A");
-              crtRow.push("Non"); // always Non
-              crtRow.push("");
-              crtRow.push("");
-              crtRow.push("");
-              crtRow.push("Non");
-              crtRow.push("");
-              crtRow.push("");
-              crtRow.push("");
+              crtRow.push("J+3");
+              crtRow.push(this.DemandeService.displayMCIsRappelB(demande)); // always Non
+              crtRow.push(this.DemandeService.displayMCDateRappelB(demande));
+              crtRow.push(heureDeRappel);
+              crtRow.push("J-3");
+              crtRow.push("Oui");
+              crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 1));
+              crtRow.push(heureDeRappel);
+              crtRow.push("J-1");
               crtRow.push("Oui"); //always
               crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 1));//  //date premiere rencontre - 1 jours
               crtRow.push(heureDeRappel); //11:00

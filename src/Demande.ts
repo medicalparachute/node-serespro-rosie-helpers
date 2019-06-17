@@ -2419,11 +2419,11 @@ displayMCDateDebut(demande)
    // return this.emptyParameter;
  }
 
- displayMCDateDebutMinusDays(demande, days)
- {
 
-   var iTarif = 0;
-   var iRencontre = 0;
+ getMCDateDebut(demande)
+ {
+   let iTarif = 0;
+   let iRencontre = 0;
 
    if(demande != null
          && typeof demande.mandatComble != 'undefined'
@@ -2439,16 +2439,93 @@ displayMCDateDebut(demande)
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date  != null
          && demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date  != ''
     ){
-  //   let crtDate: moment.Moment = moment(demande.mandat_comble.tarifs[index].date);
-     //return crtDate.format('DD/MM/YY');
-     var dtt = new Date(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
+      let dtt = new Date(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
+
+      return dtt;
+    }
+
+    return null;
+ }
+
+ displayMCDateDebutMinusDays(demande, days)
+ {
+
+   let dtt = this.getMCDateDebut(demande);
+
+   if(dtt != null){
+     //var dtt = new Date(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
 
      dtt.setDate(dtt.getDate()-days);
      return this.formatMyDate(dtt, this._Constants.default.dateFormats.exports)
-   // return this.formatMyDate(demande.mandat_comble.tarifs[iTarif].rencontres[iRencontre].date, this._Constants.default.dateFormats.exports);
    }
    return this.emptyParameter;
 
+ }
+
+ displayTodayMinusDays(demande, days)
+ {
+   let dtt = new Date();
+
+   if(dtt != null){
+     //var dtt = new Date(demande.mandatComble.tarifs[iTarif].rencontres[iRencontre].date);
+
+     dtt.setDate(dtt.getDate()-days);
+     return this.formatMyDate(dtt, this._Constants.default.dateFormats.exports)
+   }
+   return this.emptyParameter;
+ }
+ displayMCIsRappelA(demande)
+ {
+   let dtt = this.getMCDateDebut(demande);
+   if(dtt!==null)
+   {
+     let today: moment.Moment = moment();
+     let debut: moment.Moment = moment(dtt);
+     let days =debut.diff(today, 'days');
+
+     if(days>6)
+     {
+       return 'OUI';
+     }
+   }
+   return 'NON';
+ }
+ displayMCIsRappelB(demande)
+ {
+   let dtt = this.getMCDateDebut(demande);
+   if(dtt!==null)
+   {
+     let today: moment.Moment = moment();
+     let debut: moment.Moment = moment(dtt);
+     let days =debut.diff(today, 'days');
+
+     if(days>2)
+     {
+       return 'OUI';
+     }
+   }
+   return 'NON';
+ }
+
+ displayMCDateRappelB(demande)
+ {
+   let dtt = this.getMCDateDebut(demande);
+   if(dtt!==null)
+   {
+     let today: moment.Moment = moment();
+     let debut: moment.Moment = moment(dtt);
+     let days =debut.diff(today, 'days');
+
+     if(days>3)
+     {
+       dtt.setDate(dtt.getDate()-3);
+       return this.formatMyDate(dtt, this._Constants.default.dateFormats.exports);
+     }else{
+       dtt.setDate(dtt.getDate()-2);
+       return this.formatMyDate(dtt, this._Constants.default.dateFormats.exports);
+     }
+   }
+   return this.emptyParameter;
  }
 
  displayMCUrgence(demande)
