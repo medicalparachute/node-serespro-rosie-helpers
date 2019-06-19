@@ -2391,7 +2391,12 @@ displayMCProfessionalPhoneIfAllowed(demande)
 
     if(isAllowed)
     {
-      return this.displayProfessionnelPhoneByType(prof, 'CELL');
+      let cell = this.displayProfessionnelPhoneByType(prof, 'CELL');
+      if(cell!==this.emptyParameter)
+      {
+        cell = 'CELL : '+cell;
+      }
+      return cell;
     }
   }
   return '';
