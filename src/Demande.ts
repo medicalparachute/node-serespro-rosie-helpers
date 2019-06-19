@@ -2394,7 +2394,7 @@ displayMCProfessionalPhoneIfAllowed(demande)
       return this.displayProfessionnelPhoneByType(prof, 'CELL');
     }
   }
-  return 'Valider avec l’intervenant lors de la première rencontre';
+  return '';
 }
 
 displayMCDateDebut(demande)
