@@ -2490,10 +2490,10 @@ displayMCDateDebut(demande)
 
      if(days>6)
      {
-       return 'OUI';
+       return 'Oui';
      }
    }
-   return 'NON';
+   return 'Non';
  }
  displayMCIsRappelB(demande)
  {
@@ -2506,10 +2506,10 @@ displayMCDateDebut(demande)
 
      if(days>2)
      {
-       return 'OUI';
+       return 'Oui';
      }
    }
-   return 'NON';
+   return 'Non';
  }
 
  displayMCDateRappelB(demande)
