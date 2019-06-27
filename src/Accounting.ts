@@ -350,7 +350,9 @@ export class Accounting {
       "Infos relatives à ce contrat à faire apparaître sur les factures",
       "Courriel automatique de suivi de 1e rencontre",
       "Modèle de courriel de suivi de 1e rencontre",
-      "Date de 1e rencontre"
+      "Date de 1e rencontre",
+      "Mail Satisfaction fin de contrat",
+      "Modèle de mail satisfaction"
     ];
     return headers;
 
@@ -546,6 +548,8 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push( this.DemandeService.displayServiceModeleDeSuiviEmailWithAssignation(demande)); // MB xx -> only enfant / adulte
     crtRow.push(this.DemandeService.displayMCDateDebut(demande));
+    crtRow.push('Non');
+    crtRow.push(this.DemandeService.displayAssignation(demande));
 
 
     return crtRow;
