@@ -548,8 +548,9 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push( this.DemandeService.displayServiceModeleDeSuiviEmailWithAssignation(demande)); // MB xx -> only enfant / adulte
     crtRow.push(this.DemandeService.displayMCDateDebut(demande));
-    crtRow.push('Non');
-    crtRow.push(this.DemandeService.displayAssignation(demande));
+    // crtRow.push('Non');
+    crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
+    crtRow.push(this.DemandeService.displayServiceModeleDeEmailSatisfactionWithAssignation(demande));
 
 
     return crtRow;
@@ -1147,40 +1148,84 @@ export class Accounting {
 
               // crtRow.push(this.DemandeService.displayMCPrepaiementModeDeReglement(demande));
               crtRow.push(this.DemandeService.displayServiceBillingTypePrepayment(demande));
-              crtRow.push("Oui"); // always Oui
-              crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 2)); //date premiere rencontre - 2 jours
-              crtRow.push(heureDeRappel); // 11:00
-              crtRow.push("RAPPEL A");
-              crtRow.push("Non"); // always Non
+
+//Rappel Client
+
+                crtRow.push(this.DemandeService.displayMCIsRappelA(demande)); // always Oui
+                crtRow.push(this.DemandeService.displayTodayMinusDays(demande, -3));
+                crtRow.push(heureDeRappel); //11:00
+                crtRow.push("J+3");
+
+                crtRow.push(this.DemandeService.displayMCIsRappelB(demande));
+                crtRow.push(this.DemandeService.displayMCDateRappelB(demande));
+                crtRow.push(heureDeRappel);
+                crtRow.push("J-3");
+
+                crtRow.push("Oui");
+                crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 2));
+                crtRow.push(heureDeRappel);
+                crtRow.push("J-2");
+
+                //old
+
+
+              // crtRow.push("Oui"); // always Oui
+              // crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 2)); //date premiere rencontre - 2 jours
+              // crtRow.push(heureDeRappel); // 11:00
+              // crtRow.push("RAPPEL A");
+              // crtRow.push("Non"); // always Non
+              // crtRow.push("");
+              // crtRow.push("");
+              // crtRow.push("");
+              // crtRow.push("Non");
+              // crtRow.push("");
+              // crtRow.push("");
+              // crtRow.push("");
+
+
+
+
+
+//Rappel Gestionnaire
+
+              crtRow.push("Oui");
+              crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 1));
+              crtRow.push(heureDeRappel);
+              crtRow.push("J-1");
+
+              crtRow.push("Non");
               crtRow.push("");
               crtRow.push("");
               crtRow.push("");
+
               crtRow.push("Non");
               crtRow.push("");
               crtRow.push("");
               crtRow.push("");
 
 
+              // crtRow.push(this.DemandeService.displayMCIsRappelA(demande)); // always Oui
+              // crtRow.push(this.DemandeService.displayTodayMinusDays(demande, -3));
+              // crtRow.push(heureDeRappel); //11:00
+              // crtRow.push("J+3");
+              // crtRow.push(this.DemandeService.displayMCIsRappelB(demande));
+              // crtRow.push(this.DemandeService.displayMCDateRappelB(demande));
+              // crtRow.push(heureDeRappel);
+              // crtRow.push("J-3");
+              // crtRow.push("Oui");
+              // crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 1));
+              // crtRow.push(heureDeRappel);
+              // crtRow.push("J-1");
 
 
 
 
-              crtRow.push(this.DemandeService.displayMCIsRappelA(demande)); // always Oui
-              crtRow.push(this.DemandeService.displayTodayMinusDays(demande, -3));
-              crtRow.push(heureDeRappel); //11:00
-              crtRow.push("J+3");
-              crtRow.push(this.DemandeService.displayMCIsRappelB(demande));
-              crtRow.push(this.DemandeService.displayMCDateRappelB(demande));
-              crtRow.push(heureDeRappel);
-              crtRow.push("J-3");
-              crtRow.push("Oui");
-              crtRow.push(this.DemandeService.displayMCDateDebutMinusDays(demande, 1));
-              crtRow.push(heureDeRappel);
-              crtRow.push("J-1");
 
 
 
-// new
+
+
+// very old
 
               // crtRow.push(this.DemandeService.displayMCIsRappelA(demande)); // always Oui
               // // let today = moment();

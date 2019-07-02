@@ -1873,6 +1873,27 @@ displayServiceJSON(demande)
 
  }
 
+ displayServiceModeleDeEmailSatisfactionWithAssignation(demande)
+ {
+   // MB xx -> only enfant / adulte. if not -> return this.emptyParameter;
+   let demande_type = this.displayDemandeType(demande);
+   if(demande_type==='Enfant' || demande_type==='Adulte')
+   {
+     var code = demande_type;
+
+     if(code === this.emptyParameter)
+     {
+       return this.emptyParameter;
+     }
+
+     code =  code + ' - ' + this.displayAssignation(demande);
+     return code;
+   }else{
+     return this.emptyParameter;
+   }
+
+ }
+
  displayServiceCodeDeContratClientEmail(demande)
  {
    if(demande != null
