@@ -2594,7 +2594,7 @@ return this.emptyParameter;
    // MB XX -> take this from tarifs.
    // if date_fin_indeterminee === true -> return '';
    let finIndetermine = this.getRencontreDateFinIndeterminee(demande, 0,0);
-   let dateFin = this.getRencontreDateFinIndeterminee(demande, 0,0);
+   let dateFin = this.getRencontreDateFin(demande, 0,0);
 
    if(finIndetermine===false)
    {
