@@ -825,7 +825,7 @@ displayPhone(phone)
   }
   if(phone!==null && typeof phone.ext!=='undefined' && phone.ext!==null && phone.ext!=='')
   {
-    str+='('+phone.ext+')';
+    str+=' #'+phone.ext;
   }
 
   return str;
