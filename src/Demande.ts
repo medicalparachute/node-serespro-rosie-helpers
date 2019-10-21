@@ -1276,6 +1276,20 @@ displayPersonneGender(personne)
    return this.emptyParameter;
  }
 
+ displayLieuDeRencontreNameShort(demande)
+ {
+   if(demande != null
+         && typeof demande.rencontre_name_display != 'undefined'
+         && demande.rencontre_name_display != null
+
+    ){
+      return demande.rencontre_name_display;
+
+    }
+
+  return  this.displayLieuDeRencontreName(demande);
+ }
+
  displayLieuDeRencontreCity(demande)
  {
    if(demande != null
