@@ -57,7 +57,7 @@
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
-    "braces": "^3.0.2",
+    "braces": "^2.3.1",
     "handlebars": "^4.1.2",
     "lodash": "^4.17.11",
     "moment": "^2.21.0",
