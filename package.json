@@ -1,6 +1,6 @@
 {
   "name": "serespro-rosie-helpers",
-  "version": "1.0.73",
+  "version": "1.0.74",
   "description": "Helpers for the Serespro Rosie project by Medical Parachute",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -58,10 +58,27 @@
   },
   "dependencies": {
     "braces": "^3.0.2",
-    "handlebars": "^4.1.2",
-    "lodash": "^4.17.11",
+    "cached-path-relative": "^1.0.2",
+    "cryptiles": "^4.1.3",
+    "debug": "^4.1.1",
+    "deep-extend": "^0.6.0",
+    "diff": "^4.0.1",
+    "extend": "^3.0.2",
+    "fstream": "^1.0.12",
+    "handlebars": "^4.5.0",
+    "hoek": "^6.1.3",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.15",
+    "lodash.template": "^4.5.0",
+    "mem": "^5.1.1",
+    "merge": "^1.2.1",
     "moment": "^2.21.0",
-    "sshpk": "^1.16.1"
+    "nwmatcher": "^1.4.4",
+    "randomatic": "^3.1.1",
+    "sshpk": "^1.16.1",
+    "stringstream": "^1.0.0",
+    "tar": "^5.0.5",
+    "tough-cookie": "^3.0.1"
   },
   "jest": {
     "transform": {
