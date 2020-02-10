@@ -964,6 +964,10 @@ export class Accounting {
                 //    ->  if(mantantpaye < montant de la facture ) ->  create row else do not
 
     let mcType = this.DemandeService.displayMCType(demande);
+    if(mcType==='READ')
+    {
+      return false;
+    }
     let billingType = this.DemandeService.displayServiceBillingTypeName(demande);
     if(billingType==='À la carte - Pas de facture de prépaiement')
     {
@@ -987,6 +991,10 @@ export class Accounting {
   {
 
     let mcType = this.DemandeService.displayMCType(demande);
+    if(mcType==='READ')
+    {
+      return 'Le tableau prépaiement ne s\'exporte pas pour les formulaires READ';
+    }
     let billingType = this.DemandeService.displayServiceBillingTypeName(demande);
     if(billingType==='À la carte - Pas de facture de prépaiement')
     {
