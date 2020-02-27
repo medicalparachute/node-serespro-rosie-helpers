@@ -3392,7 +3392,8 @@ return this.emptyParameter;
 
 
     ){
-      return this.displayPersonnePhone(demande.mandatComble.professionnel,0);
+      // return this.displayPersonnePhone(demande.mandatComble.professionnel,0);
+      return this.displayPersonnePhoneHome(demande.mandatComble.professionnel);
    }
  return this.emptyParameter;
  }
@@ -3407,7 +3408,8 @@ return this.emptyParameter;
 
 
     ){
-      return this.displayPersonnePhone(demande.mandatComble.professionnel,1);
+      // return this.displayPersonnePhone(demande.mandatComble.professionnel,1);
+      return this.displayPersonnePhoneCell(demande.mandatComble.professionnel);
    }
  return this.emptyParameter;
  }
@@ -3421,7 +3423,9 @@ return this.emptyParameter;
 
 
     ){
-      return this.displayPersonnePhone(demande.mandatComble.professionnel,2);
+      // return this.displayPersonnePhone(demande.mandatComble.professionnel,2);
+      return this.displayPersonnePhoneWork(demande.mandatComble.professionnel);
+
    }
  return this.emptyParameter;
  }

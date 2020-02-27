@@ -234,10 +234,10 @@ export class Accounting {
           crtRow.push(this.DemandeService.displayMCEmployeurDAddressPostalWithSpace(demande));
           // crtRow.push(this.DemandeService.displayMCEmployeurDProfession(demande));
           crtRow.push(this.DemandeService.displayMCProfessionalMetier(demande)); // MB XX change from service to taking the metier from professionnel
-          crtRow.push("Cell");
-          crtRow.push(this.DemandeService.displayMCEmployeurDPhoneCell(demande));
           crtRow.push("Maison");
           crtRow.push(this.DemandeService.displayMCEmployeurDPhoneHome(demande));
+          crtRow.push("Cell");
+          crtRow.push(this.DemandeService.displayMCEmployeurDPhoneCell(demande));
           crtRow.push(this.DemandeService.displayMCEmployeurDEmail(demande));
 
           crtRow.push(this.DemandeService.displayMCProfessionalMetier(demande)); // MB XX take metier instead
