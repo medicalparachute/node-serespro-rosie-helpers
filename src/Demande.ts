@@ -1553,6 +1553,27 @@ displayServiceJSON(demande)
  return this.emptyParameter;
  }
 
+ displayServiceHeuresParSemaineCalculated(demande)
+ {
+   if(isNil(demande) || isNil(demande.heures_par_semaine_minimum))
+   {
+     return this.emptyParameter;
+   }
+
+
+
+   let min = demande.heures_par_semaine_minimum;
+
+   if(isNil(demande.heures_par_semaine_maximum) || demande.heures_par_semaine_maximum === '' || demande.heures_par_semaine_maximum===min)
+   {
+     return demande.heures_par_semaine_minimum;
+   }
+
+   let tmp = min + ' - '+demande.heures_par_semaine_maximum;
+   return tmp;
+ // return this.emptyParameter;
+ }
+
   displayServiceJoursParSemaine(demande)
  {
    if(demande != null
@@ -1563,6 +1584,16 @@ displayServiceJSON(demande)
      return demande.jours_par_semaine;
    }
  return this.emptyParameter;
+ }
+
+
+ displayDemandeHoraire(demande)
+ {
+   if(!isNil(demande) && !isNil(demande.horaire))
+   {
+     return demande.horaire;
+   }
+   return this.emptyParameter;
  }
 
  displayServiceCourrielSuiviClient(demande)
@@ -2150,7 +2181,9 @@ return this.emptyParameter;
      let deplacement = this.getFraisDeplacementPayeEtablissement(demande);
      //profStatut TA or EM
 
-     str += profStatut;
+     console.log('CTE: ',CTE, ' profStatut: ',profStatut, ' deplacement: ',deplacement );
+     // str = profStatut +' ' +str;
+     str += ' ' +profStatut;
      str += ' Feuille de temps';
      if(deplacement===true)
      {

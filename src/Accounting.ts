@@ -112,6 +112,9 @@ export class Accounting {
   ficheClientRow(demande)
   {
     var crtRow = [];
+
+    let mcType = this.DemandeService.displayMCType(demande);
+
         crtRow.push(this.DemandeService.displayClientGender(demande));
         crtRow.push(this.DemandeService.displayClientNom(demande));             // etablissment: Nom de l'etablissement
         crtRow.push(this.DemandeService.displayClientPrenom(demande));          // etablissment publique: CIUSS
@@ -149,7 +152,13 @@ export class Accounting {
         crtRow.push('Oui');
         crtRow.push('Oui');
         crtRow.push(this.DemandeService.displayAnneeScolaire(demande));
-        crtRow.push('Non');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
+
+        if(mcType==='READ')
+        {
+          crtRow.push('Oui');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
+        }else{
+          crtRow.push('Non');  // blocker sms de relance -> alwyas 'Non' . MB XX missing colonne -> look at Rosie 1.0
+        }
         crtRow.push(this.DemandeService.displayServiceClientPortailWeb(demande));
         crtRow.push('Non');  // OSS -> ALWAYS 'Non' . MB XX missing colonne
 
@@ -449,6 +458,7 @@ export class Accounting {
     crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreDuree(demande));
     crtRow.push(''); // crtRow.push(this.DemandeService.displayMCAutresRencontre(demande));
     crtRow.push(''); //  crtRow.push(this.DemandeService.displayMCTarifDureeNormale(demande, 0));
+    crtRow.push(''); //  crtRow.push(this.DemandeService.displayMCProfessionalPhoneIfAllowed(demande)); //Numéro de tel de l’intervenant
     crtRow.push(''); //  crtRow.push(this.DemandeService.displayMCParticulariteContratClientService(demande));
     crtRow.push(''); // crtRow.push(this.DemandeService.displayMCParticulariteContratClient(demande));
 
@@ -494,9 +504,9 @@ export class Accounting {
 
     crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
     crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-    crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+    crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
 
-    crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+    crtRow.push(this.DemandeService.displayDemandeHoraire(demande));
     crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
     crtRow.push( this.DemandeService.displayMCResponsableContratPhone(demande));  // MB XX put all numbers,not just one
 
@@ -523,7 +533,7 @@ export class Accounting {
 
       crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
       crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-      crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+      crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
 
       crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
       crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
@@ -697,7 +707,7 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
         crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-        crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
         crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
@@ -713,7 +723,7 @@ export class Accounting {
         crtRow.push(''); // crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
         crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
         crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
         crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
@@ -831,8 +841,8 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
         crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-        crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
-        crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+        crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
+        crtRow.push(this.DemandeService.displayDemandeHoraire(demande));
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
         crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
@@ -847,7 +857,7 @@ export class Accounting {
         crtRow.push(''); // crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
         crtRow.push(''); // crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(''); // crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
-        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineGuaranties(demande));
+        crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
         crtRow.push(''); // crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
         crtRow.push(''); // crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push(''); // crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
