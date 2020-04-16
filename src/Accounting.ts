@@ -499,7 +499,7 @@ export class Accounting {
 
 
     crtRow.push(this.DemandeService.displayMCDateFin(demande));       // MB XX -> date_fin_date doens't exist? i think it comes from tarifs in etbalissements. This doesn't apply to Enfant / Adulte
-    crtRow.push(this.DemandeService.displayEtablissement(demande));   // MB XX ->change to 'department'. get it fgrom POS
+    crtRow.push('N/A');//crtRow.push(this.DemandeService.displayEtablissement(demande));   // MB XX ->change to 'department'. get it fgrom POS
                                                                         //     if department is blank -> 'N/A'
 
     crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande));
@@ -508,10 +508,10 @@ export class Accounting {
 
     crtRow.push(this.DemandeService.displayDemandeHoraire(demande));
     crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
-    crtRow.push( this.DemandeService.displayMCResponsableContratPhone(demande));  // MB XX put all numbers,not just one
+    crtRow.push( this.DemandeService.formatPhone(this.DemandeService.displayMCResponsableContratPhone(demande)));  // MB XX put all numbers,not just one
 
     crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender prenom nom
-    crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX put all numbers,not just one
+    crtRow.push( this.DemandeService.formatPhone(this.DemandeService.displayMCResponsableFeuillePhone(demande)));  // MB XX put all numbers,not just one
     crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
 
     crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 0));

@@ -45,6 +45,31 @@ export class Demande {
     return nd.format(format);
   }
 
+  formatPhone=function(newVal)
+  {
+
+      if (isNil(newVal) || newVal.length == 0) {
+        newVal = '';
+      }
+
+      else if (newVal.length <= 3) {
+
+        newVal = newVal.replace(/^(\d{0,3})/, '($1)');
+
+      } else if (newVal.length <= 6) {
+
+        newVal = newVal.replace(/^(\d{0,3})(\d{0,3})/, '($1) $2');
+
+      } else {
+
+        newVal = newVal.replace(/^(\d{0,3})(\d{0,3})(.*)/, '($1) $2-$3');
+
+      }
+
+      return newVal;
+
+  }
+
     displayDemandeType(demande)
  {
 
