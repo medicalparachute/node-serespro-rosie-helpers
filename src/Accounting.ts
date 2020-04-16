@@ -514,11 +514,11 @@ export class Accounting {
     crtRow.push( this.DemandeService.formatPhone(this.DemandeService.displayMCResponsableFeuillePhone(demande)));  // MB XX put all numbers,not just one
     crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));
 
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 0));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 1));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 2));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 3));
-    crtRow.push( this.DemandeService.displayMCParticulariteContratClientREAD(demande, 4));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_client',0));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_client', 1));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_client', 2));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_client', 3));
+    crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_client', 4));
     crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
     crtRow.push( ''); // info relatives a ce contrat a faire appairaitre sur les factures
                         // MB XX -> Nom du requérent: {gender} {prenom} {nom} de la personne assigner au feuille de temps (RESPONSABLE_TEMPS)
@@ -712,11 +712,16 @@ export class Accounting {
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
         crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
-        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
-        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
-        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
-        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
-        crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
+        // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
+        // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
+        // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 2));
+        // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 3));
+        // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 4));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_prof',0));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_prof', 1));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_prof', 2));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_prof', 3));
+        crtRow.push( this.DemandeService.displayMCParticulariteContratREADJSONList(demande, 'contrat_prof', 4));
         crtRow.push( this.DemandeService.displayMCTarifPreavis(demande, 0));
       }else{
         crtRow.push(''); // crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date

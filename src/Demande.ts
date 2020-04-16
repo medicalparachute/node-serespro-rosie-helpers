@@ -2742,6 +2742,34 @@ return this.emptyParameter;
  return this.emptyParameter;
  }
 
+ getMCParticulariteContratREADJSONListAtIndex(demande, index)
+ {
+   if(!isNil(demande) &&
+      !isNil(demande.mandatComble) &&
+      !isNil(demande.mandatComble.particularites_contrat_client_read_list) &&
+      demande.mandatComble.particularites_contrat_client_read_list.length>0 &&
+      demande.mandatComble.particularites_contrat_client_read_list.length>index
+   ){
+    return demande.mandatComble.particularites_contrat_client_read_list[index];
+  }else{
+    return null;
+  }
+ }
+ displayMCParticulariteContratREADJSONList(demande, type, index)
+ {
+
+    let partObj = this.getMCParticulariteContratREADJSONListAtIndex(demande, index);
+    console.log('partObj: ',partObj);
+    if(isNil(partObj) || isNil(partObj[type]) || partObj[type]===false)
+    {
+      return this.emptyParameter;
+    }
+    console.log('partObj.text: ',partObj.text);
+
+    return partObj.text;
+
+ }
+
 
 
  displayMCParticulariteForfaitProfessionnel(demande)
