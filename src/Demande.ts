@@ -2755,6 +2755,19 @@ return this.emptyParameter;
     return null;
   }
  }
+
+ displayMCParticularitePremiereJourneeTravail(demande)
+ {
+
+   if(!isNil(demande) &&
+      !isNil(demande.mandatComble) &&
+      !isNil(demande.mandatComble.particularites_premiere_journee_travail)
+    ){
+      return demande.mandatComble.particularites_premiere_journee_travail;
+    }else{
+      return this.emptyParameter;
+    }
+ }
  displayMCParticulariteContratREADJSONList(demande, type, index)
  {
 
