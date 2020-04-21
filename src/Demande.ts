@@ -1741,7 +1741,6 @@ displayServiceJSON(demande)
        priceCount+= qty *  price;
      }
 
-     console.log('priceCount: ',priceCount);
    }
    return priceCount;
  }
@@ -1879,6 +1878,19 @@ displayServiceJSON(demande)
    }
    return this.emptyParameter;
  }
+
+ getMCDateFinIndeterminee(demande)
+ {
+   if(isNil(demande))
+   {
+     return true;
+   }
+
+   if(isNil(demande.mandatComble)){
+     return demande.date_fin_unknown;
+   }
+   return demande.mandatComble.date_fin_unknown;
+ }
  displayServiceCodeDeContratClient(demande)
  {
 
@@ -1892,7 +1904,8 @@ displayServiceJSON(demande)
 
    if(mcType==='READ')
    {
-     let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
+     let dateFinIndet = this.getMCDateFinIndeterminee(demande);
+     // let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
      let str = SCT;
      if(dateFinIndet===true)
      {
@@ -2121,7 +2134,7 @@ return this.emptyParameter;
 
    if(mcType==='READ')
    {
-     let dateFinIndet = this.getRencontreDateFinIndeterminee(demande, 0,0);
+     let dateFinIndet = this.getMCDateFinIndeterminee(demande);
      let str = SCT + ' ';
      if(dateFinIndet===true)
      {
@@ -2206,7 +2219,6 @@ return this.emptyParameter;
      let deplacement = this.getFraisDeplacementPayeEtablissement(demande);
      //profStatut TA or EM
 
-     console.log('CTE: ',CTE, ' profStatut: ',profStatut, ' deplacement: ',deplacement );
      // str = profStatut +' ' +str;
      str += ' ' +profStatut;
      str += ' Feuille de temps';
@@ -2665,11 +2677,12 @@ return this.emptyParameter;
 
    // MB XX -> take this from tarifs.
    // if date_fin_indeterminee === true -> return '';
-   let finIndetermine = this.getRencontreDateFinIndeterminee(demande, 0,0);
-   let dateFin = this.getRencontreDateFin(demande, 0,0);
+   let finIndetermine = this.getMCDateFinIndeterminee(demande);
+   // let dateFin = demande.mandatComble.date_fin_date;//this.getRencontreDateFin(demande, 0,0);
 
-   if(finIndetermine===false)
+   if(finIndetermine===false && !isNil(demande) && !isNil(demande.mandatComble)&& !isNil(demande.mandatComble.date_fin_date))
    {
+     let dateFin = demande.mandatComble.date_fin_date;
      return this.formatMyDate(dateFin, this._Constants.default.dateFormats.exports);
    }else{
      return 'Indéterminé'
@@ -2763,7 +2776,7 @@ return this.emptyParameter;
       !isNil(demande.mandatComble) &&
       !isNil(demande.mandatComble.particularites_premiere_journee_travail)
     ){
-      return demande.mandatComble.particularites_premiere_journee_travail;
+      return '1ère journée de travail: '+demande.mandatComble.particularites_premiere_journee_travail;
     }else{
       return this.emptyParameter;
     }
@@ -2772,12 +2785,10 @@ return this.emptyParameter;
  {
 
     let partObj = this.getMCParticulariteContratREADJSONListAtIndex(demande, index);
-    console.log('partObj: ',partObj);
     if(isNil(partObj) || isNil(partObj[type]) || partObj[type]===false)
     {
       return this.emptyParameter;
     }
-    console.log('partObj.text: ',partObj.text);
 
     return partObj.text;
 

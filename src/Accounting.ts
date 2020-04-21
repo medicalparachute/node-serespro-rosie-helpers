@@ -705,7 +705,7 @@ export class Accounting {
       if(mcType==='READ')
       {
         crtRow.push(this.DemandeService.displayMCDateFin(demande));         // MB XX if (tarifs.date_fin_indeterminee===true -> leave blank) else ->  tarifs.date_fin_date
-        crtRow.push(this.DemandeService.displayEtablissement(demande));     // MB XX change to name of POS
+        crtRow.push('N/A'); // departement
         crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
         crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
