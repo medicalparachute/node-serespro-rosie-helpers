@@ -344,7 +344,7 @@ export class Accounting {
       "Adresse du lieu de travail (sur 1 ligne)",
       "Heure de début de la 1e journée de travail",
       "Nombre total d'heures par semaine",
-      "Nombre de jours par semaine",
+      "Horaire",
       "Contrat - Nom contact",
       "Contrat - Tel contact",
       "Feuille de temps - Nom contact",
@@ -506,7 +506,7 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
     crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
 
-    crtRow.push(this.DemandeService.displayDemandeHoraire(demande));
+    crtRow.push(this.DemandeService.displayDemandeFullHoraire(demande));
     crtRow.push(( this.DemandeService.displayMCResponsableContratPrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableContratNom(demande))); //  MB XX gender prenom nom
     crtRow.push( this.DemandeService.formatPhone(this.DemandeService.displayMCResponsableContratPhone(demande)));  // MB XX put all numbers,not just one
 
@@ -618,7 +618,7 @@ export class Accounting {
      "Adresse du lieu de travail (1 ligne)",
      "Heure de la 1e journée",
      "Nombre total d'heures par semaine",
-     "Nombre de jours par semaine",
+     "Horaire",
      "Nom de la personne dûment autorisée à signer la feuille de temps",
      "No tel de la personne autorisée à signer la feuille de temps",
      "Sommaire des tâches demandées",
@@ -849,7 +849,7 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
         crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
-        crtRow.push(this.DemandeService.displayDemandeHoraire(demande));
+        crtRow.push(this.DemandeService.displayDemandeFullHoraire(demande));
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
         crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //

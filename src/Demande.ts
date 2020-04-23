@@ -135,7 +135,7 @@ export class Demande {
        return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change from client to interlocuteur
      }else{
 
-       return this.displayMCResponsableContratEmail(demande);  //MB XX verify this is RESPONSABLE_CONTRAT
+       return this.displayMCResponsableSendContrat(demande);  //MB XX verify this is RESPONSABLE_CONTRAT
      }
    }
    return this.emptyParameter;
@@ -1619,6 +1619,43 @@ displayServiceJSON(demande)
      return demande.horaire;
    }
    return this.emptyParameter;
+ }
+
+ displayDemandeJoursDeSemaine(demande)
+ {
+   if(!isNil(demande) && !isNil(demande.jour_de_semaine))
+   {
+     return demande.jour_de_semaine;
+   }
+   return this.emptyParameter;
+ }
+
+ displayDemandeTempsDePause(demande)
+ {
+   if(!isNil(demande) && !isNil(demande.temps_de_pause))
+   {
+     return demande.temps_de_pause;
+   }
+   return this.emptyParameter;
+ }
+
+
+
+ displayDemandeFullHoraire(demande)
+ {
+
+   let str = '';
+   str += this.displayDemandeJoursDeSemaine(demande);
+   str += " ";
+   str += this.displayDemandeHoraire(demande);
+   let pause = this.displayDemandeTempsDePause(demande);
+
+   if(pause!==this.emptyParameter)
+   {
+     str += " avec "+pause+" de pause non-rémunéré";
+   }
+
+   return str;
  }
 
  displayServiceCourrielSuiviClient(demande)
@@ -4499,6 +4536,21 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
           ){
            return this.displayPersonneEmail(demande.mandatComble.responsableContrat, 0);   // MB XX make sure its RESPONSABLE SIGNATURE DU CONTRAT
+         }
+         return this.emptyParameter;
+
+   }
+
+   displayMCResponsableSendContrat(demande)
+   {
+           if(demande != null
+               && typeof demande.mandatComble != 'undefined'
+               && demande.mandatComble != null
+               && typeof demande.mandatComble.responsableSendContrat != 'undefined'
+               && demande.mandatComble.responsableSendContrat != null
+
+          ){
+           return this.displayPersonneEmail(demande.mandatComble.responsableSendContrat, 0);   // MB XX make sure its RESPONSABLE SIGNATURE DU CONTRAT
          }
          return this.emptyParameter;
 
