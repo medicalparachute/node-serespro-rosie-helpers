@@ -127,7 +127,8 @@ export class Accounting {
 
 
         //crtRow.push(this.DemandeService.displayDomicileAddressExport(demande)); // MB XX displayClientAddressExport MODIFY TO WORK WITH POS
-        crtRow.push(this.DemandeService.displayBillingAddressExport(demande));           // etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
+        // crtRow.push(this.DemandeService.displayBillingAddressExport(demande));           // etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
+        crtRow.push(this.DemandeService.displayCourrielEnvoiContrat(demande));
 
 
         crtRow.push(this.DemandeService.displayDomicileCodePostal(demande));    // etablissement, clinique privee, CPE, ecole, Residence: addresse de la personne PAYABLE
