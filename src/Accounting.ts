@@ -710,7 +710,7 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayLieuDeRencontreUneLigne(demande)); // MB XX change to address of POS
         crtRow.push(this.DemandeService.displayMCPremiereRencontreHeure(demande));
         crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
-        crtRow.push(this.DemandeService.displayServiceJoursParSemaine(demande));
+        crtRow.push(this.DemandeService.displayDemandeFullHoraire(demande));
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
         crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
         crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
