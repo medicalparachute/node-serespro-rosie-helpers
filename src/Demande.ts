@@ -1625,9 +1625,18 @@ displayServiceJSON(demande)
 
  displayDemandeJoursDeSemaine(demande)
  {
-   if(!isNil(demande) && !isNil(demande.jour_de_semaine))
+   if(!isNil(demande) && !isNil(demande.jour_de_semaine) && demande.jour_de_semaine.length>0)
    {
-     return demande.jour_de_semaine;
+     let str="";
+     for(let i=0;i<demande.jour_de_semaine.length; i++)
+     {
+       if(i>0 && i<demande.jour_de_semaine.length)
+       {
+         str+="-";
+       }
+       str+=demande.jour_de_semaine[i];
+     }
+     return str;
    }
    return this.emptyParameter;
  }
@@ -1648,7 +1657,7 @@ displayServiceJSON(demande)
 
    let str = '';
    str += this.displayDemandeJoursDeSemaine(demande);
-   str += " ";
+   str += ", ";
    str += this.displayDemandeHoraire(demande);
    let pause = this.displayDemandeTempsDePause(demande);
 
