@@ -585,19 +585,43 @@ export class Demande {
 
  }
 
+ getIsUseClientFacurationAddress(demande)
+ {
+   if(isNil(demande) || isNil(demande.mandatComble) || isNil(demande.mandatComble.useClientFacurationAddress) || demande.mandatComble.useClientFacurationAddress===false )
+   {
+     return false;
+   }
+   return demande.mandatComble.useClientFacurationAddress;
+ }
+
 
  displayBillingAddressExport(demande)
  {
-   let personne = this.getBillingPerson(demande);
-   if(personne!==null)
+   let useClientBillingAddress = this.getIsUseClientFacurationAddress(demande);
+   if(useClientBillingAddress)
    {
-     let address = this.getPOSAddress(personne, 0);
-     if(address!== null )
+     let client = this.getClient(demande);
+     if(!isNil(client) && !isNil(client.addressBilling))
      {
-        return this.displayAddressExport(address);
+       return this.displayAddressExport(client.addressBilling);
      }
-   }
      return this.emptyParameter;
+
+   }else{
+
+
+     let personne = this.getBillingPerson(demande);
+     if(personne!==null)
+     {
+       let address = this.getPOSAddress(personne, 0);
+       if(address!== null )
+       {
+          return this.displayAddressExport(address);
+       }
+     }
+     return this.emptyParameter;
+   }
+
  }
  displayBillingPostal(demande)
  {
