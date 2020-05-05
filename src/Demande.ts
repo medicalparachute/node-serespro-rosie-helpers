@@ -983,8 +983,20 @@ displayBillingPhoneCell(demande)
  }
  displayBillingEmail(demande, index)
  {
-   let personne = this.getInterlocuteurOrPayerPerson(demande);
-   return this.displayEmailForPersonne(personne, index);
+   let useClientBillingAddress = this.getIsUseClientFacurationAddress(demande);
+   if(useClientBillingAddress)
+   {
+     let client = this.getClient(demande);
+     if(!isNil(client) && !isNil(client.emailBilling)&& !isNil(client.emailBilling.address))
+     {
+         return client.emailBilling.address;
+     }
+     return this.emptyParameter;
+
+   }else{
+     let personne = this.getInterlocuteurOrPayerPerson(demande);
+     return this.displayEmailForPersonne(personne, index);
+   }
  }
 
 
