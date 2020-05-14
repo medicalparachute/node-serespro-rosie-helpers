@@ -4820,6 +4820,99 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
 
 
+     // displayMCProfessionalMetier(demande)
+     // {
+     //  if(demande != null
+     //        && typeof demande.mandatComble != 'undefined'
+     //        && demande.mandatComble != null
+     //        && typeof demande.mandatComble.professionnel != 'undefined'
+     //        && demande.mandatComble.professionnel != null
+     //        && typeof demande.mandatComble.professionnel.profession_principale != 'undefined'
+     //        && demande.mandatComble.professionnel.profession_principale != null
+     //
+     //   ){
+     //    return demande.mandatComble.professionnel.profession_principale;
+     //  }
+     // return this.emptyParameter;
+     // }
+     //
+     displayHonorairesForProfessionnel(demande)
+     {
+
+       let profStatut = this.displayMCProfessionalStatutEmployment(demande);
+       let isTA = true;
+       let ta = "TA";
+       if(profStatut==='Employé')
+       {
+         isTA = false;
+         ta = ""
+       }
+
+       let statut_vacances = this.displayMCProfessionalStatutVacances(demande);
+       let vacancesInclus = false;
+       if(statut_vacances === 'Inclus' && isTA===false)
+       {
+         vacancesInclus = true;
+       }
+
+       let tauxHoraire = this.displayMCTauxHoraire(demande);
+       let pre_tauxHoraire = null;
+       if(vacancesInclus)
+       {
+         pre_tauxHoraire = tauxHoraire * 0.96;
+       }
+
+       let primeHoraire = this.displayMCPrimeHoraire(demande);
+       let pre_primeHoraire = null;
+       if(vacancesInclus)
+       {
+         pre_primeHoraire = primeHoraire * 0.96;
+       }
+
+       let primeIntervention = this.displayMCPrimeDeplacement(demande);
+       let pre_primeIntervention = null;
+       if(vacancesInclus)
+       {
+         pre_primeIntervention = primeIntervention * 0.96;
+       }
+
+       let str = "";
+
+       if(tauxHoraire!=this.emptyParameter)
+       {
+         if(vacancesInclus)
+         {
+           str += pre_tauxHoraire + "4% de vacances = ";
+         }
+         str += tauxHoraire + " $/h "+ta;
+       }
+
+       if(primeHoraire!=this.emptyParameter)
+       {
+         str += " + prime horaire de ";
+         if(vacancesInclus)
+         {
+           str += pre_primeHoraire + "4% de vacances = ";
+         }
+         str += primeHoraire + " $/h "+ta;
+       }
+
+       if(primeIntervention!=this.emptyParameter)
+       {
+         str += " + prime de déplacement de ";
+         if(vacancesInclus)
+         {
+           str += pre_primeIntervention + "4% de vacances = ";
+         }
+         str += primeIntervention + " $/h "+ta;
+       }
+
+       return str;
+
+
+     }
+
+
 
 
 }
