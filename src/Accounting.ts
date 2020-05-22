@@ -712,7 +712,7 @@ export class Accounting {
         crtRow.push(this.DemandeService.displayServiceHeuresParSemaineCalculated(demande));
         crtRow.push(this.DemandeService.displayDemandeFullHoraire(demande));
         crtRow.push(( this.DemandeService.displayMCResponsableFeuillePrenom(demande)+ ' '+ this.DemandeService.displayMCResponsableFeuilleNom(demande))); // MB XX gender + prenom + nom of responsable_feuille
-        crtRow.push( this.DemandeService.displayMCResponsableFeuillePhone(demande));  // MB XX display all tel numbers
+        crtRow.push( this.DemandeService.formatPhone(this.DemandeService.displayMCResponsableFeuillePhone(demande)));  // MB XX display all tel numbers
         crtRow.push( this.DemandeService.displaySommaireDesTaches(demande));        //
         // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 0));
         // crtRow.push( this.DemandeService.displayMCParticulariteContratTravail(demande, 1));
