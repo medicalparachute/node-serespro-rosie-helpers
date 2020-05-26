@@ -625,16 +625,30 @@ export class Demande {
  }
  displayBillingPostal(demande)
  {
-   let personne = this.getBillingPerson(demande);
-   if(personne!==null)
+
+   let useClientBillingAddress = this.getIsUseClientFacurationAddress(demande);
+   if(useClientBillingAddress)
    {
-     let address = this.getPOSAddress(personne, 0);
-     if(address!== null )
+     let client = this.getClient(demande);
+     if(!isNil(client) && !isNil(client.addressBilling))
      {
-        return this.displayAddressCodePostal(address);
+       return this.displayAddressCodePostal(client.addressBilling);
      }
-   }
      return this.emptyParameter;
+
+   }else{
+     let personne = this.getBillingPerson(demande);
+     if(personne!==null)
+     {
+       let address = this.getPOSAddress(personne, 0);
+       if(address!== null )
+       {
+          return this.displayAddressCodePostal(address);
+       }
+     }
+
+   }
+   return this.emptyParameter;
  }
 
   displayDomicileAddressExport(demande)
