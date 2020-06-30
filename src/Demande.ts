@@ -124,6 +124,19 @@ export class Demande {
    return this.emptyParameter;
  }
 
+ displayDemandeDateCreation(demande)
+ {
+
+    if(demande != null
+         && !isNil( demande.createdAt )
+    ){
+      return this.formatMyDate(demande.createdAt, this._Constants.default.dateFormats.exports);//demande.date_debut.date;
+    }
+
+
+   return this.emptyParameter;
+ }
+
  displayCourrielEnvoiContrat(demande)
  {
    var type = this.displayDemandeType(demande);
