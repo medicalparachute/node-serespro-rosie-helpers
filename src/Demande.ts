@@ -1726,7 +1726,7 @@ displayServiceJSON(demande)
 
    if(pause!==this.emptyParameter)
    {
-     str += " avec "+pause+" de pause non-rémunéré";
+     str += " avec "+pause+" de pause non-rémunérée";
    }
 
    return str;
