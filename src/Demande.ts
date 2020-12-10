@@ -140,7 +140,6 @@ export class Demande {
  displayCourrielEnvoiContrat(demande)
  {
    var type = this.displayDemandeType(demande);
-   console.log('type: ',type)
    if(type !=  this.emptyParameter)
    {
      if(type === 'Enfant'|| type==='Adulte')
@@ -148,8 +147,6 @@ export class Demande {
 
        return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change from client to interlocuteur
      }else{
-       console.log('here');
-
        return this.displayMCResponsableSendContrat(demande);  //MB XX verify this is RESPONSABLE_CONTRAT
      }
    }
@@ -3671,7 +3668,7 @@ return this.emptyParameter;
 displayMCMontantPayeMoinsQueMontantTotal(demande)
 {
 
- var amountPaid = parseInt( this.displayMCPrepaiementMontantPaye(demande));
+ var amountPaid = parseFloat( this.displayMCPrepaiementMontantPaye(demande));
  var amountTotal  =this.countMCTarifMontantTotal(demande);
 
  if(amountPaid < amountTotal)
@@ -4617,7 +4614,6 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
 
    displayMCResponsableSendContrat(demande)
    {
-     console.log('demande.mandatComble.responsableSendContrat: ',demande.mandatComble.responsableSendContrat);
            if(demande != null
                && typeof demande.mandatComble != 'undefined'
                && demande.mandatComble != null
@@ -4625,7 +4621,6 @@ displayMCMontantPayeMoinsQueMontantTotal(demande)
                && demande.mandatComble.responsableSendContrat != null
 
           ){
-            console.log('demande.mandatComble.responsableSendContrat: ',demande.mandatComble.responsableSendContrat);
            return this.displayPersonneEmail(demande.mandatComble.responsableSendContrat, 0);   // MB XX make sure its RESPONSABLE SIGNATURE DU CONTRAT
          }
          return this.emptyParameter;

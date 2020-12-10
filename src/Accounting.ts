@@ -981,18 +981,20 @@ export class Accounting {
     // if service.billingType.name === A la carte - Facture de prepaiement conditionnelle
                 //    ->  if(mantantpaye < montant de la facture ) ->  create row else do not
 
+                // return false;
     let mcType = this.DemandeService.displayMCType(demande);
     if(mcType==='READ')
     {
       return false;
     }
     let billingType = this.DemandeService.displayServiceBillingTypeName(demande);
+    console.log('billingType: ',billingType);
     if(billingType==='À la carte - Pas de facture de prépaiement')
     {
       return false;
     }
 
-    if(billingType==='À la carte - Facture de prépaiement conditionnel')
+    if(billingType==='À la carte - Facture de prépaiement conditionnelle')
     {
       let isMontant = this.DemandeService.displayMCMontantPayeMoinsQueMontantTotal(demande);
       if(isMontant==='Non')
