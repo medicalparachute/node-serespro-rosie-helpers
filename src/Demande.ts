@@ -2311,6 +2311,46 @@ return this.emptyParameter;
    }
    return this.emptyParameter;
  }
+
+ getMCFraisDeplacementPayeEtablissement(demande)
+ {
+   if(!isNil(demande)
+
+       && !isNil(demande.mandatComble)
+       && !isNil(demande.mandatComble.frais_deplacement_paye_etablissement)
+    ){
+     return demande.mandatComble.frais_deplacement_paye_etablissement;
+   }
+   return false;
+ }
+ getMCFraisDeplacementPayeEtablissementValue(demande)
+ {
+   let isFrais = this.getMCFraisDeplacementPayeEtablissement(demande);
+   if(isFrais)
+   {
+     if(!isNil(demande)
+         && !isNil(demande.mandatComble)
+         && !isNil(demande.mandatComble.remboursement_deplacement_valeur)
+      ){
+       return demande.mandatComble.remboursement_deplacement_valeur;
+     }
+   }
+
+     return this.emptyParameter;
+ }
+ getMCFraisDeplacementPayeEtablissementValueWithTaxes(demande)
+ {
+   let frais = this.getMCFraisDeplacementPayeEtablissementValue(demande);
+   if(isNil(frais) || frais === this.emptyParameter)
+   {
+     return this.emptyParameter;
+   }
+
+   let mitTax = frais + frais * (0.05 + 0.09975);
+   return mitTax.toFixed(4);
+
+ }
+
  displayServiceContratTravailEmail(demande)
  {
    let mcType = this.displayMCType(demande);

@@ -362,7 +362,9 @@ export class Accounting {
       "Modèle de courriel de suivi de 1e rencontre",
       "Date de 1e rencontre",
       "Mail Satisfaction fin de contrat",
-      "Modèle de mail satisfaction"
+      "Modèle de mail satisfaction",
+      "$ par km",
+      "$ par km (avant taxes)"
     ];
     return headers;
 
@@ -563,6 +565,8 @@ export class Accounting {
     // crtRow.push('Non');
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push(this.DemandeService.displayServiceModeleDeEmailSatisfactionWithAssignation(demande));
+    crtRow.push(this.DemandeService.getMCFraisDeplacementPayeEtablissementValueWithTaxes(demande));
+    crtRow.push(this.DemandeService.getMCFraisDeplacementPayeEtablissementValue(demande));
 
 
     return crtRow;
