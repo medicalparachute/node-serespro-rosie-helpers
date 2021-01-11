@@ -2312,7 +2312,7 @@ return this.emptyParameter;
    return this.emptyParameter;
  }
 
- getMCFraisDeplacementPayeEtablissement(demande)
+ getFraisDeplacementPayeEtablissementBool(demande)
  {
    if(!isNil(demande)
 
@@ -2323,9 +2323,10 @@ return this.emptyParameter;
    }
    return false;
  }
- getMCFraisDeplacementPayeEtablissementValue(demande)
+
+ getFraisDeplacementPayeEtablissementValue(demande)
  {
-   let isFrais = this.getMCFraisDeplacementPayeEtablissement(demande);
+   let isFrais = this.getFraisDeplacementPayeEtablissementBool(demande);
    if(isFrais)
    {
      if(!isNil(demande)
@@ -2338,9 +2339,9 @@ return this.emptyParameter;
 
      return this.emptyParameter;
  }
- getMCFraisDeplacementPayeEtablissementValueWithTaxes(demande)
+ getFraisDeplacementPayeEtablissementValueWithTaxes(demande)
  {
-   let frais = this.getMCFraisDeplacementPayeEtablissementValue(demande);
+   let frais = this.getFraisDeplacementPayeEtablissementValue(demande);
    if(isNil(frais) || frais === this.emptyParameter)
    {
      return this.emptyParameter;

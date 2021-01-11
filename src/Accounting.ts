@@ -565,8 +565,8 @@ export class Accounting {
     // crtRow.push('Non');
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push(this.DemandeService.displayServiceModeleDeEmailSatisfactionWithAssignation(demande));
-    crtRow.push(this.DemandeService.getMCFraisDeplacementPayeEtablissementValueWithTaxes(demande));
-    crtRow.push(this.DemandeService.getMCFraisDeplacementPayeEtablissementValue(demande));
+    crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValueWithTaxes(demande));
+    crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValue(demande));
 
 
     return crtRow;
