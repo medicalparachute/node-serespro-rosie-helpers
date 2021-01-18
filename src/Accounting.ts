@@ -364,7 +364,8 @@ export class Accounting {
       "Mail Satisfaction fin de contrat",
       "Modèle de mail satisfaction",
       "$ par km",
-      "$ par km (avant taxes)"
+      "$ par km (avant taxes)",
+      "Membre de son ordre"
     ];
     return headers;
 
@@ -567,6 +568,7 @@ export class Accounting {
     crtRow.push(this.DemandeService.displayServiceModeleDeEmailSatisfactionWithAssignation(demande));
     crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValueWithTaxes(demande));
     crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValue(demande));
+    crtRow.push(this.DemandeService.displayServiceIsMembreDeSonOrdre(demande));
 
 
     return crtRow;

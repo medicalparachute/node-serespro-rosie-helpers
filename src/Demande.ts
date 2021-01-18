@@ -1615,6 +1615,25 @@ displayServiceJSON(demande)
  return "Non";
  }
 
+ getServiceIsMembreDeSonOrdre(demande)
+ {
+   if(!isNil(demande) && !isNil(demande.service) && !isNil(demande.service.verification_ordre_a_faire) && demande.service.verification_ordre_a_faire===true)
+   {
+     return true;
+    }
+  return false;
+ }
+
+ displayServiceIsMembreDeSonOrdre(demande)
+ {
+   let val = this.getServiceIsMembreDeSonOrdre(demande);
+   if(val===true)
+   {
+     return "Membre en règle de son ordre professionnel";
+    }
+  return "N/A";
+ }
+
 
   displayServiceHeuresParSemaineEstime(demande)
  {
@@ -2316,10 +2335,10 @@ return this.emptyParameter;
  {
    if(!isNil(demande)
 
-       && !isNil(demande.mandatComble)
-       && !isNil(demande.mandatComble.frais_deplacement_paye_etablissement)
+       && !isNil(demande)
+       && !isNil(demande.frais_deplacement_paye_etablissement)
     ){
-     return demande.mandatComble.frais_deplacement_paye_etablissement;
+     return demande.frais_deplacement_paye_etablissement;
    }
    return false;
  }
@@ -2330,10 +2349,10 @@ return this.emptyParameter;
    if(isFrais)
    {
      if(!isNil(demande)
-         && !isNil(demande.mandatComble)
-         && !isNil(demande.mandatComble.remboursement_deplacement_valeur)
+         && !isNil(demande)
+         && !isNil(demande.remboursement_deplacement_valeur)
       ){
-       return demande.mandatComble.remboursement_deplacement_valeur;
+       return demande.remboursement_deplacement_valeur;
      }
    }
 
