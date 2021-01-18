@@ -1615,22 +1615,12 @@ displayServiceJSON(demande)
  return "Non";
  }
 
- getServiceIsMembreDeSonOrdre(demande)
- {
-   if(!isNil(demande) && !isNil(demande.service) && !isNil(demande.service.verification_ordre_a_faire) && demande.service.verification_ordre_a_faire===true)
-   {
-     return true;
-    }
-  return false;
- }
-
  displayServiceIsMembreDeSonOrdre(demande)
  {
-   let val = this.getServiceIsMembreDeSonOrdre(demande);
-   if(val===true)
+   if(!isNil(demande) && !isNil(demande.service) && !isNil(demande.service.metier)  && !isNil(demande.service.metier.order_verification) &&  demande.service.metier.order_verification===true)
    {
      return "Membre en règle de son ordre professionnel";
-    }
+   }
   return "N/A";
  }
 
