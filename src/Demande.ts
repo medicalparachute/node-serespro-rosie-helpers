@@ -608,6 +608,7 @@ export class Demande {
  displayBillingAddressExport(demande)
  {
    let useClientBillingAddress = this.getIsUseClientFacurationAddress(demande);
+   console.log('useClientBillingAddress: ',useClientBillingAddress);
    if(useClientBillingAddress)
    {
      let client = this.getClient(demande);
@@ -621,6 +622,7 @@ export class Demande {
 
 
      let personne = this.getBillingPerson(demande);
+     console.log('getBillingPerson: ',personne);
      if(personne!==null)
      {
        let address = this.getPOSAddress(personne, 0);
