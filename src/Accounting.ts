@@ -363,6 +363,8 @@ export class Accounting {
       "Date de 1e rencontre",
       "Mail Satisfaction fin de contrat",
       "Modèle de mail satisfaction",
+      "URL enquête satisfaction 1ere rencontre",
+      "URL satisfaction fin de contrat",
       "$ par km",
       "$ par km (avant taxes)",
       "Membre de son ordre"
@@ -566,6 +568,8 @@ export class Accounting {
     // crtRow.push('Non');
     crtRow.push(this.DemandeService.displayServiceCourrielSuiviClient(demande));
     crtRow.push(this.DemandeService.displayServiceModeleDeEmailSatisfactionWithAssignation(demande));
+    crtRow.push(''); // URL enquête satisfaction 1ere rencontre
+    crtRow.push(''); // URL satisfaction fin de contrat
     crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValueWithTaxes(demande));
     crtRow.push(this.DemandeService.getFraisDeplacementPayeEtablissementValue(demande));
     crtRow.push(this.DemandeService.displayServiceIsMembreDeSonOrdre(demande));
