@@ -164,8 +164,31 @@ export class Demande {
        return this.displayPersonneEmail(demande.interlocuteur, 0);  // MB XX change client to interlocuteur
      }else{
 
+
        //return this.displayInterlocuteurEmail(demande);        //  MB XX change client to PAYABLE
-       return this.displayBillingEmail(demande, 0);
+
+       let billingEmails = this.getBillingEmailList(demande);
+
+       // get clientEmail List isFacultatif = true;
+       let facEmails = [];
+
+       for(let em of billingEmails)
+       {
+         facEmails.push(em.address);
+       }
+        if(!isNil(demande.client) && !isNil(demande.client.emails))
+        {
+          for(let em of demande.client.emails)
+          {
+            if(em.isFacultatif)
+            {
+              facEmails.push(em.address);
+            }
+          }
+        }
+
+
+       return facEmails;//this.displayBillingEmail(demande, 0);
      }
    }
 
@@ -1022,6 +1045,30 @@ displayBillingPhoneCell(demande)
    }else{
      let personne = this.getInterlocuteurOrPayerPerson(demande);
      return this.displayEmailForPersonne(personne, index);
+   }
+ }
+
+ getBillingEmailList(demande)
+ {
+   let useClientBillingAddress = this.getIsUseClientFacurationAddress(demande);
+   let emails = [];
+   if(useClientBillingAddress)
+   {
+     let client = this.getClient(demande);
+     if(!isNil(client) && !isNil(client.emailBilling)&& !isNil(client.emailBilling.address))
+     {
+         //return client.emailBilling.address;
+         emails.push(client.emailBilling.address);
+     }
+     return emails;
+
+   }else{
+     let personne = this.getInterlocuteurOrPayerPerson(demande);
+     if(!isNil(personne) && !isNil(personne.emails))
+     {
+       return personne.emails
+     }
+     return emails;
    }
  }
 

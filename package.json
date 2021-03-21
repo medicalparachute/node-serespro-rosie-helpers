@@ -1,6 +1,6 @@
 {
   "name": "serespro-rosie-helpers",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Helpers for the Serespro Rosie project by Medical Parachute",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
