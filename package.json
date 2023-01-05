@@ -46,14 +46,14 @@
     "browserify": "^14.4.0",
     "delete-empty": "^1.0.1",
     "dts-bundle": "^0.7.3",
-    "jest": "^20.0.4",
+    "jest": "^29.3.1",
     "standard-version": "^4.2.0",
-    "ts-jest": "^20.0.10",
+    "ts-jest": "^29.0.3",
     "ts-loader": "^2.3.3",
     "tslint": "^5.6.0",
     "tslint-loader": "^3.5.3",
     "typescript": "2.4.2",
-    "webpack": "3.5.5",
+    "webpack": "5.75.0",
     "webpack-node-externals": "^1.6.0"
   },
   "dependencies": {
